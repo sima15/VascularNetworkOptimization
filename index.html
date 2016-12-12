@@ -42,37 +42,49 @@
 <h3>
 <a id="method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method</h3>
 
-<p>Genetic algorithm which is useful in optimization problems, was used to determine the best values for the set of parameters under research. The program would search the space for a set of
-  parameter values which would result in an optimized network of vascular cells. In this project, the network was evaluated visually 
-  for fitness, specifically considering the number of lacunae formed in the simulation world. Obviously, formation of higher number of
-  lacunae means availability of nutrients and access to removal system to more producer cells and consequently a higher productivity of 
-  the cell culture. 
-</p>
-    <p> JGAP package from MOEA framework was used for the genetic algorithm creation. Initial population was set to include 2 Chromosomes. Each chromosome consisted of 7 genes, the parameters being evaluated. A validity range was assigned to each gene so that the algorithm would choose values in the range. Initial population values were set randomly. The algorithm was set to stop executing after 30 iterations.  
-	Parameters:
-	     The parameters used in the GA included chemo-attractant force response relevant to vascular and circulatory cells, chemo-attractant reaction of the vascular network consisting of chemo-attractant production rate, decay rate, and half-saturation, and finally chemo-attractant reaction of the circulatory cells comprising chemo-attractant production and decay rate. 
-	Parameter ranges:
-	     The parameter ranges included a substantially different ranges starting from ( 0.0000000001, 0.001 ) for chemo-attractant decay rate for circulatory cells to ( 1 , 7 ) for chemo-attractant production rate of vascular cells depending on the type of parameter. 
+	<p>Genetic algorithm which is useful in optimization problems, was used to determine the best values for the set of parameters under research. The program would search the space for a set of
+	  parameter values which would result in an optimized network of vascular cells. In this project, the network was evaluated visually 
+	  for fitness, specifically considering the number of lacunae formed in the simulation world. Obviously, formation of higher number of
+	  lacunae means availability of nutrients and access to removal system to more producer cells and consequently a higher productivity of 
+	  the cell culture. 
+	</p>
+   	 <p> JGAP package from MOEA framework was used for the genetic algorithm creation. Initial population was set to include 2 Chromosomes. Each chromosome consisted of 7 genes, the parameters being evaluated. A validity range was assigned to each gene so that the algorithm would choose values in the range. Initial population values were set randomly. The algorithm was set to stop executing after 30 iterations.  
+	<h4>
+		 Parameters:
+	  </h4>
+	  The parameters used in the GA included chemo-attractant force response relevant to vascular and circulatory cells, chemo-attractant reaction of the vascular network consisting of chemo-attractant production rate, decay rate, and half-saturation, and finally chemo-attractant reaction of the circulatory cells comprising chemo-attractant production and decay rate. 
+	<h4>
+	  Parameter ranges:
+	  </h4>   
+		The parameter ranges included a substantially different ranges starting from ( 0.0000000001, 0.001 ) for chemo-attractant decay rate for circulatory cells to ( 1 , 7 ) for chemo-attractant production rate of vascular cells depending on the type of parameter. 
 	     Time was the biggest constraint in the present study. In order to reduce its effect, the study used a rather small sized simulation world considering vascular cells only. The regular simulation time originally was approximately 24 hours which using the mentioned
-      method was reduced to about 4 hours. Another short coming of this work, was the inability of our program to calculate the amount of product for every simulation,
-      therefore, even if our GA would reach interesting results, the second limitation would prevent us from getting suitable results. 
-    </p>
+	      method was reduced to about 4 hours. Another short coming of this work, was the inability of our program to calculate the amount of product for every simulation,
+	      therefore, even if our GA would reach interesting results, the second limitation would prevent us from getting suitable results. 
+   	 </p>
     
     <h3>
 <a id="results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
-    <p><div style="text-align:center"><img src="https://sima15.github.io/VascularNetworkOptimization/images/best.png" alt="The best vascular network"/></div>
+    <p><div style="text-align:left; width:400px;height:300px;"><img src="https://sima15.github.io/VascularNetworkOptimization/images/best.png" alt="The best vascular network"/></div>
 
       Figure 3. This picture shows an active cell culture simulation resulting from the genetic alorithm developed in this project.  
     It depicts  active producer microbial cells in green, inactive producer microbial cells in yellow and endothelial-like cells forming a vascular network in shades of red; higher flow vascular cell branches are depicted darker while lighter vascular cells show branches with lower flow. 
     According to the picture, there are not many inactive producer cells remaining which shows the high quality of the vascular network in the simulation.
-      <div style="text-align: right"><img src="https://sima15.github.io/VascularNetworkOptimization/images/poor.png" alt="A sample good vascular network"/></div>
+      <div style="text-align: right; width:400px;height:300px;"><img src="https://sima15.github.io/VascularNetworkOptimization/images/poor.png" alt="A sample good vascular network"/></div>
 
       Figure 4. A sample network of vascular cells in an arbitrary stage of the genetic algorithm run. This picture shows a cell culture simulation including active producer microbial cells in green, and endothelial-like cells
     forming a vascular network in shades of red; higher flow vascular cell branches are depicted darker while lighter vascular cells show branches with
     lower flow. As it is shown, many producer cells are deprived of nutrients and do not contribute to the production of the system.   
+    
+	<p><div style="text-align:left; width:400px;height:300px;"><img src="https://sima15.github.io/VascularNetworkOptimization/images/flowVisualization.png" alt="The best vascular network"/></div>
+
+      Figure 5. The amount of flow inside the vascular network, red showing higher flow while darker colors depicts less flow.
+	
+	<p><div style="text-align:left; width:400px;height:300px;"><img src="https://sima15.github.io/VascularNetworkOptimization/images/flowVisualization(2).png" alt="The best vascular network"/></div>
+
+      Figure 6. The amount of flow inside the vascular network, red showing higher flow while darker colors depicts less flow.  
    
 	  <div style="text-align: center"><img src="https://sima15.github.io/VascularNetworkOptimization/images/chart.png" alt="vascular network production chart"/></div>
-	  Figure 5. A comparison between the production amount of two network of vascular cells, one being in an arbitrary stage of the genetic algorithm
+	  Figure 7. A comparison between the production amount of two network of vascular cells, one being in an arbitrary stage of the genetic algorithm
 	  run and the other the best vescular system our genetic algortihm has discovered. 
     
 	  </p>
