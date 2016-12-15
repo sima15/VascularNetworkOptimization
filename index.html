@@ -3,213 +3,58 @@
   <head>
     <meta charset="UTF-8">
     <title>Vascular Network Optimization Using A Genetic Algorithm, A Computational Approach by sima15</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-	
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <!--
-	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-	<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-	-->	
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
-  <style>
-	.bg-1 { 
-	    background-color: #1abc9c; /* Green */
-	    color: #ffffff;
-	}
-	.header { 
-	    background-color: #2E86C1; /* Blue */
-	    color:#FFFF33;
-	    font-weight:900;
-	    font-size:400%;
-	    padding:70px;
-	}
-	.body1{
-	  	padding:90px 150px;
-	  }
-	  .link-color{
-		color: #ffff33;		
-	  }
-	  .title{
-	  	color:#2E86C1;
-		font-weight:150%;  
-	  }
-	  
-</style>
-</head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
   <body>
-	 
-<div class="container-fluid text-center header">
     <section class="page-header">
       <h1 class="project-name">Vascular Network Optimization Using A Genetic Algorithm, A Computational Approach</h1>
       <h2 class="project-tagline"></h2>
-      <a href="https://github.com/sima15/VascularNetworkOptimization" class="btn link-color">View on GitHub</a>
-      <a href="https://github.com/sima15/VascularNetworkOptimization/zipball/master" class="btn link-color">Download .zip</a>
-      <a href="https://github.com/sima15/VascularNetworkOptimization/tarball/master" class="btn link-color">Download .tar.gz</a>
+      <a href="https://github.com/sima15/VascularNetworkOptimization" class="btn">View on GitHub</a>
+      <a href="https://github.com/sima15/VascularNetworkOptimization/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/sima15/VascularNetworkOptimization/tarball/master" class="btn">Download .tar.gz</a>
     </section>
-</div>
-<div class="container-fluid body1">
-<section class="main-content">
-	<h3>
-		<a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-		Abstract
-	</h3>
 
-	<p>
-		Current work attempts to optimize a computationally formed vascular network of endothelial-like cells inside a cell culture.
-		A genetic algorithm is used to get the best parameter values for the creation of this network.
-	</p>
+    <section class="main-content">
+      <h3>
+<a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Abstract</h3>
 
-	<h3>
-		<a id="introduction" class="anchor title" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span>
-		</a>Introduction
-	</h3>
+<p>Current work attempts to optimize a computationally formed vascular network of endothelial-like cells inside a cell culture. A genetic algorithm is used to get the best parameter values for the creation of this network.</p>
 
-	<p>
-		Current bioengineered cell factories suffer from productivity limitations caused by inefficient nutrient delivery and waste and product
-		removal. While solutions currently adopted include modification of physical configuration of bioreactors, another computational
-		work [reference] attempts at introducing a set of endothelial-like cells into the factory. The mentioned cells from a vascular 
-		network over a short time and function as a medium of nutrient delivery and product and waste removal; hence, increasing the
-		productivity of the cell culture.   
-	</p>
-	<p>
-		The formation of such a vascular network requires different conditions to be met. The percentage of the endothelial-like cells
-		directly affects the quality of the created network. While many biological parameters need to be set for successful simulation
-		of the process, various biomechanical factors as well as their values also should be inserted. An XML file contains a record
-		of the mentioned parameters. 
-	</p>
-	<p>
-		 This work seeks to optimize the vascular network being created. It attempts at finding the most precise values for a
-		set of biological parameters which the author  believes to have a significant impact on the quality of network of cells.
-		The quality mentioned includes a smooth and consistent spread of the vascular cells among producer cells in the culture,
-		fewest possible disconnections of the network and close to average area inside each lacunae. 
-	</p>
-	    <div class="row">
- 		 <div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/sample VN.png"
-					    alt="A sample bad vascular network" style="width:100%" />
-			Figure 1. A sample cell culture simulation including producer microbial cells in yellow and endothelial-like
-			 cells forming a vascular network in red.
-	  	  </div>
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/bad VN.png"
-					   alt="A sample good vascular network" style="width:100%" />
-			Figure 2. A sample active cell culture simulation including active producer microbial cells in green, inactive
-			producer microbial cells in yellow and endothelial-like cells forming a vascular network in shades of red;
-			higher flow vascular cell branches are depicted darker while lighter vascular cells show branches with lower
-			flow. The microbial cells which do not receive sufficient nutrients and do not have their waste and products
-			removed remain inactive as shown in the picture. 
-		</div>
-	   </div>
-	<h3>
-		<a id="method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link title">
-		</span></a>Method
-	</h3>
+<h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
-	<p>
-		Genetic algorithm which is useful in optimization problems, was used to determine the best values for the set of parameters
-		under research. The program would search the space for a set of parameter values which would result in an optimized network
-		of vascular cells. In this project, the network was evaluated visually for fitness, specifically considering the number of 
-		lacunae formed in the simulation world. Obviously, formation of higher number of lacunae means availability of nutrients 
-		and access to removal system to more producer cells and consequently a higher productivity of the cell culture. 
-	</p>
-   	 <p> 
-		 JGAP package from MOEA framework was used for the genetic algorithm creation. Initial population was set to include
-		 2 Chromosomes. Each chromosome consisted of 7 genes, the parameters being evaluated. A validity range was assigned to
-		 each gene so that the algorithm would choose values in the range. Initial population values were set randomly. The 
-		 algorithm was set to stop executing after 30 iterations.  
-	</p>
-	<h5 class="title">
-		 Parameters:
-	  </h5>
-	<p>
-		The parameters used in the GA included chemo-attractant force response relevant to vascular and circulatory cells,
-		chemo-attractant reaction of the vascular network consisting of chemo-attractant production rate, decay rate, and
-		half-saturation, and finally chemo-attractant reaction of the circulatory cells comprising chemo-attractant 
-		production and decay rate. 	
-	</p>
-	<h5 class="title">
-	  Parameter ranges:
-	  </h5>
-	<p>
-		The parameter ranges included a substantially different ranges starting from ( 0.0000000001, 0.001 ) for 
-		chemo-attractant decay rate for circulatory cells to ( 1 , 7 ) for chemo-attractant production rate of vascular 
-		cells depending on the type of parameter. 	
-	</p>
-	<p>
-		Time was the biggest constraint in the present study. In order to reduce its effect, the study
-		used a rather small sized simulation world considering vascular cells only. The regular simulation time originally was
-		approximately 24 hours which using the mentioned method was reduced to about 4 hours. Another short coming of this work,
-		was the inability of our program to calculate the amount of product for every simulation, therefore, even if our GA would
-		reach interesting results, the second limitation would prevent us from getting suitable results. 
-	</p>
-	
-    
-    <h3>
-	<a id="results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link title"></span>
-	    </a>Results
-    </h3>
-   
-	<div class="row">
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/best.png" alt="The best vascular
-			network" style="width:100%" />
-		    	Figure 3. Product distribution of the best vascular network of endothelial-like cells that our algorithm has found in 30
-			iterations
-		</div>
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/no-network.png" alt="A sample good
-			vascular network" style="width:100%" />
-		     Figure 4. Product distribution of a random vascular network of endothelial-like cells which is not optimized. 
-		</div>
-	</div>
+<p>Current bioengineered cell factories suffer from productivity limitations caused by inefficient nutrient delivery and waste and product removal. While solutions currently adopted include modification of the physical configuration of bioreactors, another computational work [reference] attempts at introducing a set of endothelial-like cells into the factory. The mentioned cells from a vascular network over a short time and function as a medium of nutrient delivery and product and waste removal; hence, increasing the productivity of the cell culture.<br>
+         The formation of such a vascular network requires different conditions to be met. The percentage of the endothelial-like cells directly affects the quality of the created network. While many biological parameters need to be set for successful simulation of the process, various biomechanical factors, as well as their values also should be inserted. An XML file contains a record of the mentioned parameters. 
+         This work seeks to optimize the vascular network being created. It attempts at finding the most precise values for a set of biological parameters which the author  believes to have a significant impact on the quality of the network of cells. The quality mentioned includes a smooth and consistent spread of the vascular cells among producer cells in the culture, fewest possible disconnections of the network and close to the average area inside each lacuna. 
+<img src="https://github.com/sima15/VascularNetworkOptimization/images/sample%20VN.png" alt="">
+<img src="https://github.com/sima15/VascularNetworkOptimization/images/bad%20VN.png" alt=""></p>
 
-	     <div class="row">
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/flowVisualization.png" alt="The best 
-			vascular network" style="width:100%" />
-     		 Figure 5. Flow diagram inside the best vascular network of endothelial-like cells that our algorithm has found in 30 iterations
+<hr>
 
-		</div>
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/no-network-flow.png" alt="The best
-			vascular network" style="width:100%" />
-	         Figure 6. Flow diagram inside a random vascular network of endothelial-like cells which is not optimized. 
-  	        </div>
-	     </div>
-	  <div><img src="https://sima15.github.io/VascularNetworkOptimization/images/chart.png" 
-					       class="img-responsive" style="display:inline" alt="vascular network production chart"/>
-		  Figure 7. A comparison between the production amount of two network of vascular cells, one being in an arbitrary stage of the genetic algorithm
-		  run and the other the best vescular system our genetic algortihm has discovered.     
-	</div>
-    
-	<h3>
-		<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link
-			title"></span></a>Conclusion
-	</h3>
+<h3>
+<a id="method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method</h3>
 
-	<p>
-		This study presents an attempt to optimize a vascular network of endothelial-like cells using genetic algorithm. 
-	</p>
-	<p>
-		The results show a significant improvement in the productivity of the cell culture using the current approach. 
-	</p>
-	<p>
-		where cells and gaps among them appear bigger than they should. Therefore, the image processing algorithm adopted was 
-		modified to ignore small gaps and dilate the vascular network. Consequently, the vascular network was assumed to be 
-		larger and thicker than it was in reality and caused a portion of unreal increase in the productivity of the system.
-		This issue did not have a huge impact on the result of the genetic algorithm since the results were all produced the
-		same way. However, as future work a more precise image processing method would definitely improve the results.    
-	</p>
+<p>Genetic algorithm which is useful in optimization problems was used to determine the best values for the set of given parameters. 
+JGAP package from MOEA framework was used for the genetic algorithm creation. Initial population was set to include 5 Chromosomes. Each chromosome consisted of 9 genes, the parameters being evaluated. A validity range was assigned to each gene so that the algorithm would choose values in the range. Initial population was set randomly. The algorithm was set to stop executing at 20 iterations.</p>
 
-	<h3>
-		<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon 
-			octicon-link title">
-		</span></a>References
-	</h3>
+<h3>
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Conclusion</h3>
 
-	<p>
-		[1] “‘Exploiting Self-Organization in Bioengineered Systems: A Computational Approach’ by Delin Davis.” [Online]. Available: <a href="http://digitalcommons.usu.edu/etd/4914/">http://digitalcommons.usu.edu/etd/4914/</a>. [Accessed: 04-Dec-2016].
-		[2] “iDynoMiCS: next-generation individual-based modelling of biofilms - Lardon - 2011 - Environmental Microbiology - Wiley Online Library.” [Online]. Available: <a href="http://onlinelibrary.wiley.com/wol1/doi/10.1111/j.1462-2920.2011.02414.x/citedby">http://onlinelibrary.wiley.com/wol1/doi/10.1111/j.1462-2920.2011.02414.x/citedby</a>. [Accessed: 04-Dec-2016]. 
-		[3] “JGAP: Java Genetic Algorithms Package.” [Online]. Available: <a href="http://jgap.sourceforge.net/">http://jgap.sourceforge.net/</a>. [Accessed: 04-Dec-2016].
-		[4] “MOEA Framework, a Java library for multiobjective evolutionary algorithms.” [Online]. Available: <a href="http://moeaframework.org/">http://moeaframework.org/</a>. [Accessed: 04-Dec-2016].
-	</p>
+<p>This study presents an attempt to optimize a vascular network of endothelial-like cells using genetic algorithm.
+The results show a 200% improvement in the productivity of the cell culture using the current approach. 
+Time was the biggest constraint in the present study. In order to reduce its effect, the study used a rather small sized simulation world where cells and gaps among them appear bigger than they should. Therefore, the image processing algorithm adopted was modified to ignore small gaps and regard them as vascular cells. Consequently, the vascular network was assumed to be larger and thicker than it was in reality and caused a portion of unreal increase in the productivity of the system. This issue did not have a huge impact on the result of the genetic algorithm since the results were all produced the same way. However, as future work a more precise image processing method would definitely improve the results.    </p>
+
+<h3>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h3>
+
+<p>[1] “‘Exploiting Self-Organization in Bioengineered Systems: A Computational Approach’ by Delin Davis.” [Online]. Available: <a href="http://digitalcommons.usu.edu/etd/4914/">http://digitalcommons.usu.edu/etd/4914/</a>. [Accessed: 04-Dec-2016].
+[2] “iDynoMiCS: next-generation individual-based modelling of biofilms - Lardon - 2011 - Environmental Microbiology - Wiley Online Library.” [Online]. Available: <a href="http://onlinelibrary.wiley.com/wol1/doi/10.1111/j.1462-2920.2011.02414.x/citedby">http://onlinelibrary.wiley.com/wol1/doi/10.1111/j.1462-2920.2011.02414.x/citedby</a>. [Accessed: 04-Dec-2016]. 
+[3] “JGAP: Java Genetic Algorithms Package.” [Online]. Available: <a href="http://jgap.sourceforge.net/">http://jgap.sourceforge.net/</a>. [Accessed: 04-Dec-2016].
+[4] “MOEA Framework, a Java library for multiobjective evolutionary algorithms.” [Online]. Available: <a href="http://moeaframework.org/">http://moeaframework.org/</a>. [Accessed: 04-Dec-2016].</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/sima15/VascularNetworkOptimization">Vascular Network Optimization Using A Genetic Algorithm, A Computational Approach</a> is maintained by <a href="https://github.com/sima15">sima15</a>.</span>
@@ -218,7 +63,6 @@
       </footer>
 
     </section>
-</div>
 
   
   </body>
