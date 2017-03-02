@@ -10,16 +10,23 @@ import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
 import idyno.Idynomics;
-import simulation.MyController;
+import simulation.Controller;
+import utils.ImgProcLog;
 import vnoptimization.utility.WriteToFile;
 
 
 public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
-	  private final static String CVS_REVISION = "$Revision: 1.0 $";
-	  private int evolutionIndex =0;
+	  private final static String CVS_REVISION = "$Revision: 2.0 $";
+	 
+	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
+	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
+	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
+	  private String name;
+	  
+	  private int evolutionIndex = 0;
 	  private final int m_targetAmount;
-
+	  int counter = 1;
 	  public static final int MAX_BOUND = 4000;
 
 	  public VNFitnessFunction(int a_targetAmount) {
@@ -44,91 +51,79 @@ public class VNFitnessFunction extends FitnessFunction {
 		  
 		  
 		  //get values of the chromosome
-		  Map<String,Double> map=new HashMap<String,Double>();
+		  Map<String,Double> map = new HashMap<String,Double>();
 		  Double value = (Double) a_subject.getGene(0).getAllele();
 		  
 		  //updating chemotactic Strength with attract
 		  double parameterValue0 =value.doubleValue();
-		  WriteToFile.write("-----------------------------------------");
-		  WriteToFile.write("Evolution number "+ ++evolutionIndex);
-		  WriteToFile.write("Parameter values");
-		  WriteToFile.write("chemotactic Strength With Attract: "+parameterValue0);
+		  ImgProcLog.write("-----------------------------------------");
+		  ImgProcLog.write("Evolution number "+ ++evolutionIndex);
+		  ImgProcLog.write("Parameter values");
+		  ImgProcLog.write("chemotactic Strength With Attract: "+parameterValue0);
 		  map.put("chemotactic Strength With Attract", parameterValue0 );
 		
 		  //updating chemotactic Strength with gradient
 		  double parameterValue1 = getParameterValue(a_subject,1);
-		  WriteToFile.write("chemotactic Strength With Gradient: "+parameterValue1);
+		  ImgProcLog.write("chemotactic Strength With Gradient: "+parameterValue1);
 		  map.put("chemotactic Strength With Gradient", parameterValue1 );
 
 		  //updating 
 		  double parameterValue2 = getParameterValue(a_subject,2);
-		  WriteToFile.write("Vessel muMax: "+parameterValue2);
+		  ImgProcLog.write("Vessel muMax: "+parameterValue2);
 		  map.put("Vessel muMax",(double) parameterValue2);
 		  
 		  //updating 
 		  double parameterValue3 = getParameterValue(a_subject,3);
-		  WriteToFile.write("Pipe muMax: "+parameterValue3);
+		  ImgProcLog.write("Pipe muMax: "+parameterValue3);
 		  map.put("Pipe muMax",(double) parameterValue3);
 		  
 		  //updating 
 		  double parameterValue4 = getParameterValue(a_subject,4);
-		  WriteToFile.write("Vessel Beta: "+parameterValue4);
+		  ImgProcLog.write("Vessel Beta: "+parameterValue4);
 		  map.put("Vessel Beta",(double) parameterValue4);
 		  
 		  //updating 
 		  double parameterValue5 = getParameterValue(a_subject,5);
-		  WriteToFile.write("Pipe Beta: "+parameterValue5);
+		  ImgProcLog.write("Pipe Beta: "+parameterValue5);
 		  map.put("Pipe Beta",(double) parameterValue5);
 		  
 		//updating 
 		  double parameterValue6 = getParameterValue(a_subject,6);
-		  WriteToFile.write("Vessel K: "+parameterValue6);
+		  ImgProcLog.write("Vessel K: "+parameterValue6);
 		  map.put("Vessel K",(double) parameterValue6);
 		  
 		  //update protocol xml of iDynomica with new values in chromosome
+		  XMLUpdater.setPath(PROTOCOL_PATH + PROTOCOL);
 		  XMLUpdater.updateParameter(map);
 		  
 		  //run idynomics
-		  System.out.println("Runnig iDynomics in VNOptimization project");
-		  Idynomics id =new Idynomics();
+		  ImgProcLog.write("Runnig iDynomics in VascularNetworkOptimization project");
+		  Idynomics idynomics = new Idynomics();
+		  idynomics.setProtocolPath(PROTOCOL_PATH + PROTOCOL); 
 		  try {
-			id.func();
+			idynomics.func();
 		} catch (Exception e1) {
+			ImgProcLog.write("Idynomics.main(): error met while writing out random number state file");
 			e1.printStackTrace();
 		}
 
-		String folderName = "";
+		name =  LatestModifiedFileReader.getLastFolderName(REULT_PATH);
+		
+		Controller secondPhaseController = new Controller(name, PROTOCOL, REULT_PATH+ "\\");
 		try {
-			folderName = LatestModifiedFileReader.getLastFolderName();
-		} catch (InterruptedException | IOException e) {
-			e.printStackTrace();
-		}
-		  MyController imgController = new MyController(folderName);
-		  try {
-			imgController.start();
+			secondPhaseController.start();
 		} catch (Exception e) {
 			System.out.println("Exception caught in GA:");
 			e.printStackTrace();
-			if(imgController.getNodeMergerTileSize() <24){
-				imgController.setNodeMergerOptimizer(true);
-				imgController.setNodeMergerTileSize(imgController.getNodeMergerTileSize() + 1);
-				System.out.println("Starting phase one with nodeMergerTileSize = "+ imgController.getNodeMergerTileSize());
-				try{
-					imgController.verifyConditions();
-				}catch(Exception e2){
-					System.out.println("Exception e2 caught in GA:");
-					e2.printStackTrace();
-				}
-			}
 		} 
 
 		  //find Set Complexity
-	    int numCycles = MyController.getNumCycles();
-//	    double product = imgController.getProduct();
-//		WriteToFile.write("product amount for this Chromosome is " + product);
-	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
-//	    return product;
-	    return numCycles;
+	    int numCycles = secondPhaseController.getNumCycles();
+	    double product = secondPhaseController.getProduct();
+		ImgProcLog.write("product amount for this Chromosome is " + product);
+//	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
+	    return product;
+//	    return numCycles;
 //			try {
 //				 setComplexity=SetComplexityFinder.calcuate();
 //			} catch (IOException e) {

@@ -6,11 +6,10 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.impl.BooleanGene;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
-import examples.simpleBoolean.MaxFunction;
+import utils.ImgProcLog;
 
 public class VNoptimization {
 	/**
@@ -20,7 +19,7 @@ public class VNoptimization {
 	 */
 
 	  /** String containing the CVS revision. Read out via reflection!*/
-	  private static final String CVS_REVISION = "$Revision: 1.0 $";
+	  private static final String CVS_REVISION = "$Revision: 2.0 $";
 
 	  /**
 	   * Starts the program.
@@ -82,7 +81,7 @@ public class VNoptimization {
 	    for( int i = 0; i <numEvolutions; i++ )
 		  {
 			  IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
-		  		System.out.println("Best so far ... "+ bestSolutionSoFar.getFitnessValue());
+			  ImgProcLog.write("Best so far ... "+ bestSolutionSoFar.getFitnessValue());
 
 		  		genotype.evolve();
 		  }
@@ -90,7 +89,7 @@ public class VNoptimization {
 	    // Print summary.
 	    // --------------
 	    IChromosome fittest = genotype.getFittestChromosome();
-	    System.out.println("Fittest Chromosome has fitness " +
+	    ImgProcLog.write("Fittest Chromosome has fitness " +
 	                       fittest.getFitnessValue());
 	  }
 	

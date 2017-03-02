@@ -22,12 +22,22 @@ import org.xml.sax.SAXException;
 import org.dom4j.io.SAXReader;
 public class XMLUpdater {
 
+//	String filepath = "E:\\Bio research\\GA\\protocols\\experiments\\Vascularperc30-quartSize.xml";
+	
+	static String filepath ;
+	public static void setPath(String path){
+		filepath = path;
+	}
+
+	/**
+	 * Changes 6 parameter values in the protocol.xml file which exists in the 
+	 * filepath given
+	 * @param map A hashMap of parameter names and updated values
+	 */
 	public static void updateParameter(Map<String, Double> map){
 
-
 	try {
-		String filepath = "E:\\Courses\\cs6600\\Project\\program\\protocols\\experiments\\Empty30-quartSize-short.xml";
-		File inputFile = new File(filepath);
+//		File inputFile = new File(filepath);
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(filepath);
