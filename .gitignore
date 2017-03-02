@@ -1,0 +1,10 @@
+*.class
+*.classPath
+*.project
+*.txt
+*.wrl
+*.log
+*.bat
+*.jar
+*.xml
+*.properties
