@@ -27,7 +27,7 @@ public class VNoptimization {
 	   * of bits to use, but no more than 32
 	   */
 	  public static void main(String[] args) {
-		int numEvolutions = 30;
+		int numEvolutions = 50;
 		Configuration gaConf = new DefaultConfiguration();
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(true);
@@ -69,7 +69,7 @@ public class VNoptimization {
 	      IChromosome sampleChromosome = new Chromosome(gaConf,
 	          gene);
 	      gaConf.setSampleChromosome(sampleChromosome);
-	      gaConf.setPopulationSize(2);
+	      gaConf.setPopulationSize(5);
 	      gaConf.setFitnessFunction(new VNFitnessFunction(targetAmount));
 	      genotype = Genotype.randomInitialGenotype(gaConf);
 	    }
@@ -78,7 +78,7 @@ public class VNoptimization {
 	      System.exit( -2);
 	    }
 
-	    for( int i = 0; i <numEvolutions; i++ )
+	    for( int i = 0; i <numEvolutions*5; i++ )
 		  {
 			  IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
 			  ImgProcLog.write("Best so far ... "+ bestSolutionSoFar.getFitnessValue());

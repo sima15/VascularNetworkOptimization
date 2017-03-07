@@ -1,10 +1,7 @@
 package vnoptimization;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.transform.TransformerException;
 
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
@@ -12,7 +9,6 @@ import org.jgap.IChromosome;
 import idyno.Idynomics;
 import simulation.Controller;
 import utils.ImgProcLog;
-import vnoptimization.utility.WriteToFile;
 
 
 public class VNFitnessFunction extends FitnessFunction {
@@ -23,7 +19,7 @@ public class VNFitnessFunction extends FitnessFunction {
 	  private final String PROTOCOL_PATH = "D:\\Bio research\\GA\\protocols\\experiments\\";
 	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
 	  private String name;
-	  private final int ITERATIONS	= 50;
+	  private final int ITERATIONS	= 16;
 	  
 	  private int evolutionIndex = 0;
 	  private final int m_targetAmount;
@@ -114,7 +110,8 @@ public class VNFitnessFunction extends FitnessFunction {
 		try {
 			secondPhaseController.start();
 		} catch (Exception e) {
-			System.out.println("Exception caught in GA:");
+			ImgProcLog.write("Exception caught in GA:");
+			ImgProcLog.write(e.getMessage());
 			e.printStackTrace();
 		} 
 
