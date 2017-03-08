@@ -1,10 +1,7 @@
 package vnoptimization;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.transform.TransformerException;
 
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
@@ -12,17 +9,17 @@ import org.jgap.IChromosome;
 import idyno.Idynomics;
 import simulation.Controller;
 import utils.ImgProcLog;
-import vnoptimization.utility.WriteToFile;
 
 
 public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
 	  private final static String CVS_REVISION = "$Revision: 2.0 $";
 	 
-	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
-	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
+	  private final String REULT_PATH = "D:\\Bio research\\GA\\resultss\\experiments";
+	  private final String PROTOCOL_PATH = "D:\\Bio research\\GA\\protocols\\experiments\\";
 	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
 	  private String name;
+	  private final int ITERATIONS	= 16;
 	  
 	  private int evolutionIndex = 0;
 	  private final int m_targetAmount;
@@ -109,11 +106,12 @@ public class VNFitnessFunction extends FitnessFunction {
 
 		name =  LatestModifiedFileReader.getLastFolderName(REULT_PATH);
 		
-		Controller secondPhaseController = new Controller(name, PROTOCOL, REULT_PATH+ "\\");
+		Controller secondPhaseController = new Controller(name, PROTOCOL, REULT_PATH+ "\\", ITERATIONS);
 		try {
 			secondPhaseController.start();
 		} catch (Exception e) {
-			System.out.println("Exception caught in GA:");
+			ImgProcLog.write("Exception caught in GA:");
+			ImgProcLog.write(e.getMessage());
 			e.printStackTrace();
 		} 
 
