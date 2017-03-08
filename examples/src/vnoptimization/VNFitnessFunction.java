@@ -84,7 +84,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		  ImgProcLog.write("Pipe Beta: "+parameterValue5);
 		  map.put("Pipe Beta",(double) parameterValue5);
 		  
-		//updating 
+		  //updating 
 		  double parameterValue6 = getParameterValue(a_subject,6);
 		  ImgProcLog.write("Vessel K: "+parameterValue6);
 		  map.put("Vessel K",(double) parameterValue6);
@@ -93,7 +93,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		  XMLUpdater.setPath(PROTOCOL_PATH + PROTOCOL);
 		  XMLUpdater.updateParameter(map);
 		  
-		  //run idynomics
+		  //run iDynomics
 		  ImgProcLog.write("Runnig iDynomics in VascularNetworkOptimization project");
 		  Idynomics idynomics = new Idynomics();
 		  idynomics.setProtocolPath(PROTOCOL_PATH + PROTOCOL); 
@@ -115,14 +115,15 @@ public class VNFitnessFunction extends FitnessFunction {
 			e.printStackTrace();
 		} 
 
-	    int numCycles = secondPhaseController.getNumCycles();
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
 //	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
-		
 		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ (System.currentTimeMillis()- evolutaionStartTime));
-	    return product;
-		  
+		
+		//Return the amount of the cell factory product if it exists
+		if(product > 0) return product;
+		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
+		else return secondPhaseController.getNumCycles()+ secondPhaseController.getPathFromLeftToRightExistence();
 	  }
 
 	  /**
