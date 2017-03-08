@@ -1,10 +1,7 @@
 package vnoptimization;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.transform.TransformerException;
 
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
@@ -12,7 +9,6 @@ import org.jgap.IChromosome;
 import idyno.Idynomics;
 import simulation.Controller;
 import utils.ImgProcLog;
-import vnoptimization.utility.WriteToFile;
 
 
 public class VNFitnessFunction extends FitnessFunction {
@@ -23,6 +19,7 @@ public class VNFitnessFunction extends FitnessFunction {
 	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
 	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
 	  private String name;
+	  private final int ITERATIONS	= 16;
 	  
 	  private int evolutionIndex = 0;
 	  private final int m_targetAmount;
@@ -48,7 +45,7 @@ public class VNFitnessFunction extends FitnessFunction {
 	   * Chromosome
 	   */
 	  public double evaluate(IChromosome a_subject) {
-		  
+		  double evolutaionStartTime = System.currentTimeMillis();
 		  
 		  //get values of the chromosome
 		  Map<String,Double> map = new HashMap<String,Double>();
@@ -87,7 +84,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		  ImgProcLog.write("Pipe Beta: "+parameterValue5);
 		  map.put("Pipe Beta",(double) parameterValue5);
 		  
-		//updating 
+		  //updating 
 		  double parameterValue6 = getParameterValue(a_subject,6);
 		  ImgProcLog.write("Vessel K: "+parameterValue6);
 		  map.put("Vessel K",(double) parameterValue6);
@@ -96,7 +93,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		  XMLUpdater.setPath(PROTOCOL_PATH + PROTOCOL);
 		  XMLUpdater.updateParameter(map);
 		  
-		  //run idynomics
+		  //run iDynomics
 		  ImgProcLog.write("Runnig iDynomics in VascularNetworkOptimization project");
 		  Idynomics idynomics = new Idynomics();
 		  idynomics.setProtocolPath(PROTOCOL_PATH + PROTOCOL); 
@@ -109,42 +106,24 @@ public class VNFitnessFunction extends FitnessFunction {
 
 		name =  LatestModifiedFileReader.getLastFolderName(REULT_PATH);
 		
-		Controller secondPhaseController = new Controller(name, PROTOCOL, REULT_PATH+ "\\");
+		Controller secondPhaseController = new Controller(name, PROTOCOL, REULT_PATH+ "\\", ITERATIONS);
 		try {
 			secondPhaseController.start();
 		} catch (Exception e) {
-			System.out.println("Exception caught in GA:");
+			ImgProcLog.write("Exception caught in GA:");
+			ImgProcLog.write(e.getMessage());
 			e.printStackTrace();
 		} 
 
-		  //find Set Complexity
-	    int numCycles = secondPhaseController.getNumCycles();
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
 //	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
-	    return product;
-//	    return numCycles;
-//			try {
-//				 setComplexity=SetComplexityFinder.calcuate();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ (System.currentTimeMillis()- evolutaionStartTime));
 		
-		  
-		
-//		  Double value = (Double) a_subject.getGene(0).getAllele();
-//		  System.out.println("Gene value = "+ value);
-//		  Double d = Math.random();
-//		  System.out.println("Random value = "+ d );
-//		  return value+d;
-		  
+		//Return the amount of the cell factory product if it exists
+		if(product > 0) return product;
+		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
+		else return secondPhaseController.getNumCycles()+ secondPhaseController.getPathFromLeftToRightExistence();
 	  }
 
 	  /**
