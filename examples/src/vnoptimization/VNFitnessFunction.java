@@ -15,8 +15,8 @@ public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
 	  private final static String CVS_REVISION = "$Revision: 2.0 $";
 	 
-	  private final String REULT_PATH = "D:\\Bio research\\GA\\resultss\\experiments";
-	  private final String PROTOCOL_PATH = "D:\\Bio research\\GA\\protocols\\experiments\\";
+	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
+	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
 	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
 	  private String name;
 	  private final int ITERATIONS	= 16;
@@ -45,7 +45,7 @@ public class VNFitnessFunction extends FitnessFunction {
 	   * Chromosome
 	   */
 	  public double evaluate(IChromosome a_subject) {
-		  
+		  double evolutaionStartTime = System.currentTimeMillis();
 		  
 		  //get values of the chromosome
 		  Map<String,Double> map = new HashMap<String,Double>();
@@ -115,33 +115,13 @@ public class VNFitnessFunction extends FitnessFunction {
 			e.printStackTrace();
 		} 
 
-		  //find Set Complexity
 	    int numCycles = secondPhaseController.getNumCycles();
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
 //	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
+		
+		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ (System.currentTimeMillis()- evolutaionStartTime));
 	    return product;
-//	    return numCycles;
-//			try {
-//				 setComplexity=SetComplexityFinder.calcuate();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		
-		  
-		
-//		  Double value = (Double) a_subject.getGene(0).getAllele();
-//		  System.out.println("Gene value = "+ value);
-//		  Double d = Math.random();
-//		  System.out.println("Random value = "+ d );
-//		  return value+d;
 		  
 	  }
 
