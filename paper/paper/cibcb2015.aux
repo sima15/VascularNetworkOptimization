@@ -1,0 +1,104 @@
+\relax 
+\citation{Kang2014Biocellion}
+\citation{qanitabaker:Materi2007Computational}
+\citation{qanitabaker:DiazOchoa2012Multiscale}
+\citation{qanitabaker:Castiglione2014Modeling}
+\citation{Vicini2010Multiscale}
+\citation{qanitabaker:Mahoney2012Multiobjective}
+\citation{qanitabaker:Walker2007Challenges}
+\citation{qanitabaker:Transtrum2009Why}
+\citation{qanitabaker:RodriguezFernandez2006Novel}
+\citation{qanitabaker:Chou2009Recent}
+\citation{qanitabaker:Sun2012Parameter}
+\citation{qanitabaker:Banga2008Optimization}
+\citation{qanitabaker:BalsaCanto2008Hybrid}
+\citation{qanitabaker:Lillacci2010Parameter}
+\citation{Carmeliet2000Angiogenesis}
+\citation{Bergers2008Modes}
+\citation{qanitabaker:MacGabhann2006Computational,qanitabaker:Stefanini2008Compartment,qanitabaker:Gabhann2012Simulating}
+\citation{qanitabaker:Mahoney2012Multiobjective}
+\citation{qanitabaker:Finley2013Compartment,qanitabaker:Yen2011TwoCompartment}
+\citation{qanitabaker:Stefanini2008Compartment}
+\citation{Takahashi2005Vascular}
+\citation{Chopdar2003Age}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Vargis2014Effect}
+\@writefile{toc}{\contentsline {section}{\numberline {I}INTRODUCTION}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Multicellular Experiment and Model}{1}}
+\citation{qanitabaker:Lardon2011IDynoMiCS}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Shin2012Microfluidic}
+\citation{qanitabaker:Bryckaert2000Regulation}
+\citation{qanitabaker:Vargis2014Effect}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) Patches of stained RPE cells at 72 hours for each patch size. \cite  {qanitabaker:Vargis2014Effect}. (b) Time course of VEGF expression per cell measured at 4, 24, 30, 48, and 72 h ( data for each time from the \textit  {in vitro} \cite  {qanitabaker:Vargis2014Effect} ). \relax }}{2}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{in_vitro_experiment}{{1}{2}}
+\newlabel{VEGF_autoregulation}{{1}{2}}
+\newlabel{Cell_Growth}{{2}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}METHOD}{2}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces  Known and unknown parameter descriptions\relax }}{3}}
+\newlabel{parameters}{{I}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces (a) Closeup of initial condition of a \SI {400}{\micro \metre } patch (b) Experiment with \SI {400}{\micro \metre }, 3 patches in each side. (c) Closeup of the VEGF distribution after 72 hours, (d) VEGF distribution over whole domain after 72 hours. \relax }}{3}}
+\newlabel{simulation_examples}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces An overview for the error-minimization multicellular search-based approach. In (A), RPE cells are cultured using micropatterning techniques. In (B), the parameters are initialized in the XML protocol file. In (C), a simulation is performed and the results are calculated. In (D), the error is calculated based on the difference in VEGF concentration per cell between the experimental results and simulation outputs as in Equation 3\hbox {}. Based on the change in error, new parameter values are selected for another simulation run (E and F). This process(B-F) will be repeated until an exit condition is met where the error improvement is below a threshold value or the search time runs out.\relax }}{3}}
+\newlabel{Fittingoverview}{{3}{3}}
+\newlabel{Model error}{{3}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}RESULTS}{3}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Algorithm for the Error-Minimization Search-Based approach using parameter sweeps which identifies a parameters vector $\bar {P}$ that is locally optimal\relax }}{4}}
+\newlabel{optimization_Algo}{{1}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Error based on different $K$ values with iteration number $It$\relax }}{4}}
+\newlabel{Ki}{{4}{4}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces The parameter sweep algorithm that performs a simulation for all $\bar {P}$ (a combination of free parameters). $P_{files}$ are the XML protocol files that define the model input and initial condition, $K$ is the parameter count, $k$ is a counter that ranges from 1 to $K$, $max_k$ is the maximum value for parameter $k$, $min_k$ is the minimum value for the $k$th parameter, and $step_k$ is the value by which parameter $k$ is incremented, $\bar {P}$ holds a single combination of parameter values for which a simulation will be performed, $P$ is a matrix of size $K$x$j$ where $j$ is the number of values in the range of some parameter (which changes as the algorithm progresses) and P[k][j] holds the jth value of the kth parameter, and $Run_N$ is the number of repeated runs, each using different random seeds \relax }}{4}}
+\newlabel{sweep_Algo}{{2}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The heat map of error between $K$ and VEGF binding coefficient/rate ($\beta $) determined from the first round sweep.\relax }}{4}}
+\newlabel{KiB1}{{5}{4}}
+\citation{qanitabaker:Vargis2014Effect}
+\citation{qanitabaker:Vargis2014Effect}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The heat map of error between $K$ and VEGF binding coefficient/rate ($\beta $) determined from the second round sweep.\relax }}{5}}
+\newlabel{KiB2}{{6}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The heat map of error between $K$ and VEGF binding coefficient/rate ($\beta $) from the third round sweep.\relax }}{5}}
+\newlabel{KiB3}{{7}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The VEGF autoregulatory function of RPE cells showing how the secretion rate of VEGF is down regulated as a function of the VEGF in the microenvironment.\relax }}{5}}
+\newlabel{finalGraph}{{8}{5}}
+\newlabel{In-Vitro_Data}{{9a}{5}}
+\newlabel{sub@In-Vitro_Data}{{a}{5}}
+\newlabel{AfterOpt}{{9b}{5}}
+\newlabel{sub@AfterOpt}{{b}{5}}
+\newlabel{VEGF_final}{{4}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}CONCLUSION}{5}}
+\citation{Kang2014Biocellion}
+\citation{Ruusuvuori2014Quantitative}
+\bibstyle{plain}
+\bibdata{qanitabaker-retinal,qanitabaker-fittingthree,nicholasflann}
+\bibcite{qanitabaker:BalsaCanto2008Hybrid}{1}
+\bibcite{qanitabaker:Banga2008Optimization}{2}
+\bibcite{Bergers2008Modes}{3}
+\bibcite{qanitabaker:Bryckaert2000Regulation}{4}
+\bibcite{Carmeliet2000Angiogenesis}{5}
+\bibcite{qanitabaker:Castiglione2014Modeling}{6}
+\bibcite{Chopdar2003Age}{7}
+\bibcite{qanitabaker:Chou2009Recent}{8}
+\bibcite{qanitabaker:DiazOchoa2012Multiscale}{9}
+\bibcite{qanitabaker:Finley2013Compartment}{10}
+\bibcite{qanitabaker:Gabhann2012Simulating}{11}
+\bibcite{Kang2014Biocellion}{12}
+\bibcite{qanitabaker:Lardon2011IDynoMiCS}{13}
+\bibcite{qanitabaker:Lillacci2010Parameter}{14}
+\bibcite{qanitabaker:MacGabhann2006Computational}{15}
+\bibcite{qanitabaker:Mahoney2012Multiobjective}{16}
+\bibcite{qanitabaker:Materi2007Computational}{17}
+\bibcite{qanitabaker:RodriguezFernandez2006Novel}{18}
+\bibcite{Ruusuvuori2014Quantitative}{19}
+\bibcite{qanitabaker:Shin2012Microfluidic}{20}
+\bibcite{qanitabaker:Stefanini2008Compartment}{21}
+\bibcite{qanitabaker:Sun2012Parameter}{22}
+\@writefile{toc}{\contentsline {section}{References}{6}}
+\bibcite{Takahashi2005Vascular}{23}
+\bibcite{qanitabaker:Transtrum2009Why}{24}
+\bibcite{qanitabaker:Vargis2014Effect}{25}
+\bibcite{Vicini2010Multiscale}{26}
+\bibcite{qanitabaker:Walker2007Challenges}{27}
+\bibcite{qanitabaker:Yen2011TwoCompartment}{28}

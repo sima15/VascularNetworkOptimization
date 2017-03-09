@@ -1,0 +1,180 @@
+\begin{thebibliography}{10}
+
+\bibitem{qanitabaker:BalsaCanto2008Hybrid}
+Eva Balsa-Canto, Martin Peifer, Julio~R. Banga, Jens Timmer, and Christian
+  Fleck.
+\newblock {Hybrid optimization method with general switching strategy for
+  parameter estimation}.
+\newblock {\em BMC Systems Biology}, 2(1):26+, March 2008.
+
+\bibitem{qanitabaker:Banga2008Optimization}
+Julio~R. Banga.
+\newblock {Optimization in computational systems biology.}
+\newblock {\em BMC systems biology}, 2(1):47+, May 2008.
+
+\bibitem{Bergers2008Modes}
+Gabriele Bergers and Douglas Hanahan.
+\newblock {Modes of resistance to anti-angiogenic therapy}.
+\newblock {\em Nature Reviews Cancer}, 8(8):592--603, August 2008.
+
+\bibitem{qanitabaker:Bryckaert2000Regulation}
+M.~Bryckaert, X.~Guillonneau, C.~Hecquet, P.~Perani, Y.~Courtois, and
+  F.~Mascarelli.
+\newblock {Regulation of proliferation-survival decisions is controlled by FGF1
+  secretion in retinal pigmented epithelial cells.}
+\newblock {\em Oncogene}, 19(42):4917--4929, October 2000.
+
+\bibitem{Carmeliet2000Angiogenesis}
+Peter Carmeliet and Rakesh~K. Jain.
+\newblock {Angiogenesis in cancer and other diseases}.
+\newblock {\em Nature}, 407(6801):249--257, September 2000.
+
+\bibitem{qanitabaker:Castiglione2014Modeling}
+Filippo Castiglione, Francesco Pappalardo, Carlo Bianca, Giulia Russo, and
+  Santo Motta.
+\newblock {Modeling biology spanning different scales: an open challenge.}
+\newblock {\em BioMed research international}, 2014, 2014.
+
+\bibitem{Chopdar2003Age}
+Amresh Chopdar, Usha Chakravarthy, and Dinesh Verma.
+\newblock {Age related macular degeneration}.
+\newblock {\em BMJ}, 326(7387):485--488, March 2003.
+
+\bibitem{qanitabaker:Chou2009Recent}
+I-Chun Chou and Eberhard~O. Voit.
+\newblock {Recent developments in parameter estimation and structure
+  identification of biochemical and genomic systems.}
+\newblock {\em Mathematical biosciences}, 219(2):57--83, June 2009.
+
+\bibitem{qanitabaker:DiazOchoa2012Multiscale}
+Juan~G. Diaz~Ochoa, Joachim Bucher, Alexandre~R. P\'{e}ry, Jos\'{e}~M.
+  Zaldivar~Comenges, Jens Niklas, and Klaus Mauch.
+\newblock {A multi-scale modeling framework for individualized, spatiotemporal
+  prediction of drug effects and toxicological risk.}
+\newblock {\em Frontiers in pharmacology}, 3, 2012.
+
+\bibitem{qanitabaker:Finley2013Compartment}
+Stacey~D. Finley, Manjima Dhar, and Aleksander~S. Popel.
+\newblock {Compartment model predicts VEGF secretion and investigates the
+  effects of VEGF trap in tumor-bearing mice.}
+\newblock {\em Frontiers in oncology}, 3, 2013.
+
+\bibitem{qanitabaker:Gabhann2012Simulating}
+FeilimMac Gabhann, MarianneO Stefanini, and AleksanderS Popel.
+\newblock {Simulating Therapeutics Using Multiscale Models of the VEGF Receptor
+  System in Cancer}.
+\newblock In Trachette~L. Jackson, editor, {\em Modeling Tumor Vasculature},
+  pages 37--53. Springer New York, 2012.
+
+\bibitem{Kang2014Biocellion}
+Seunghwa Kang, Simon Kahan, Jason McDermott, Nicholas Flann, and Ilya
+  Shmulevich.
+\newblock {Biocellion: accelerating computer simulation of multicellular
+  biological system models}.
+\newblock {\em Bioinformatics}, 30(21):3101--3108, November 2014.
+
+\bibitem{qanitabaker:Lardon2011IDynoMiCS}
+Laurent~A. Lardon, Brian~V. Merkey, S\'{o}nia Martins, Andreas D\"{o}tsch,
+  Cristian Picioreanu, Jan-Ulrich~U. Kreft, and Barth~F. Smets.
+\newblock {iDynoMiCS: next-generation individual-based modelling of biofilms.}
+\newblock {\em Environmental microbiology}, 13(9):2416--2434, September 2011.
+
+\bibitem{qanitabaker:Lillacci2010Parameter}
+Gabriele Lillacci and Mustafa Khammash.
+\newblock {Parameter Estimation and Model Selection in Computational Biology}.
+\newblock {\em PLoS Comput Biol}, 6(3):e1000696+, March 2010.
+
+\bibitem{qanitabaker:MacGabhann2006Computational}
+Feilim Mac~Gabhann, James~W. Ji, and Aleksander~S. Popel.
+\newblock {Computational model of vascular endothelial growth factor spatial
+  distribution in muscle and pro-angiogenic cell therapy.}
+\newblock {\em PLoS computational biology}, 2(9):e127+, September 2006.
+
+\bibitem{qanitabaker:Mahoney2012Multiobjective}
+Arthur~W. Mahoney, Gregory~J. Podgorski, and Nicholas~S. Flann.
+\newblock {Multiobjective optimization based-approach for discovering novel
+  cancer therapies.}
+\newblock {\em IEEE/ACM transactions on computational biology and
+  bioinformatics / IEEE, ACM}, 9(1):169--184, January 2012.
+
+\bibitem{qanitabaker:Materi2007Computational}
+Wayne Materi and David~S. Wishart.
+\newblock {Computational systems biology in drug discovery and development:
+  methods and applications}.
+\newblock {\em Drug Discovery Today}, 12(7-8):295--303, April 2007.
+
+\bibitem{qanitabaker:RodriguezFernandez2006Novel}
+Maria Rodriguez-Fernandez, Jose~A. Egea, and Julio~R. Banga.
+\newblock {Novel metaheuristic for parameter estimation in nonlinear dynamic
+  biological systems.}
+\newblock {\em BMC bioinformatics}, 7:483+, November 2006.
+
+\bibitem{Ruusuvuori2014Quantitative}
+Pekka Ruusuvuori, Jake Lin, Adrian~C. Scott, Zhihao Tan, Saija Sorsa, Aleksi
+  Kallio, Matti Nykter, Olli Yli-Harja, Ilya Shmulevich, and Aim\'{e}e~M.
+  Dudley.
+\newblock {Quantitative analysis of colony morphology in yeast.}
+\newblock {\em BioTechniques}, 56(1):18--27, January 2014.
+
+\bibitem{qanitabaker:Shin2012Microfluidic}
+Yoojin Shin, Sewoon Han, Jessie~S. Jeon, Kyoko Yamamoto, Ioannis~K.
+  Zervantonakis, Ryo Sudo, Roger~D. Kamm, and Seok Chung.
+\newblock {Microfluidic assay for simultaneous culture of multiple cell types
+  on surfaces or within hydrogels}.
+\newblock {\em Nat. Protocols}, 7(7):1247--1259, July 2012.
+
+\bibitem{qanitabaker:Stefanini2008Compartment}
+Marianne~O. Stefanini, Florence~T. Wu, Feilim~M. Gabhann, and Aleksander~S.
+  Popel.
+\newblock {A compartment model of VEGF distribution in blood, healthy and
+  diseased tissues}.
+\newblock {\em BMC Systems Biology}, 2(1):77+, 2008.
+
+\bibitem{qanitabaker:Sun2012Parameter}
+Jianyong Sun, J.~M. Garibaldi, and C.~Hodgman.
+\newblock {Parameter Estimation Using Metaheuristics in Systems Biology: A
+  Comprehensive Review}.
+\newblock {\em Computational Biology and Bioinformatics, IEEE/ACM Transactions
+  on}, 9(1):185--202, January 2012.
+
+\bibitem{Takahashi2005Vascular}
+Hiroyuki Takahashi and Masabumi Shibuya.
+\newblock {The vascular endothelial growth factor (VEGF)/VEGF receptor system
+  and its role under physiological and pathological conditions.}
+\newblock {\em Clinical science (London, England : 1979)}, 109(3):227--241,
+  September 2005.
+
+\bibitem{qanitabaker:Transtrum2009Why}
+M.~K. Transtrum, B.~B. Machta, and J.~P. Sethna.
+\newblock {Why are nonlinear fits so challenging?}
+\newblock {\em Physical Review Letters}, 104(6):060201+, December 2009.
+
+\bibitem{qanitabaker:Vargis2014Effect}
+Elizabeth Vargis, Cristen~B. Peterson, Jennifer~L. Morrell-Falvey, Scott~T.
+  Retterer, and Charles Patrick.
+\newblock {The effect of retinal pigment epithelial cell patch size on growth
+  factor expression.}
+\newblock {\em Biomaterials}, 35(13):3999--4004, April 2014.
+
+\bibitem{Vicini2010Multiscale}
+P.~Vicini.
+\newblock {Multiscale Modeling in Drug Discovery and Development: Future
+  Opportunities and Present Challenges}.
+\newblock {\em Clinical Pharmacology \& Therapeutics}, 88(1):126--129, June
+  2010.
+
+\bibitem{qanitabaker:Walker2007Challenges}
+Edward Walker and Chona Guiang.
+\newblock {Challenges in Executing Large Parameter Sweep Studies Across Widely
+  Distributed Computing Environments}.
+\newblock In {\em Proceedings of the 5th IEEE Workshop on Challenges of Large
+  Applications in Distributed Environments}, CLADE '07, pages 11--18, New York,
+  NY, USA, 2007. ACM.
+
+\bibitem{qanitabaker:Yen2011TwoCompartment}
+Phillip Yen, Stacey~D. Finley, Marianne~O. Engel-Stefanini, and Aleksander~S.
+  Popel.
+\newblock {A Two-Compartment Model of VEGF Distribution in the Mouse}.
+\newblock {\em PLoS ONE}, 6(11):e27514+, November 2011.
+
+\end{thebibliography}
