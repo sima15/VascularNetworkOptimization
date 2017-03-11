@@ -111,19 +111,23 @@ public class VNFitnessFunction extends FitnessFunction {
 			secondPhaseController.start();
 		} catch (Exception e) {
 			ImgProcLog.write("Exception caught in GA:");
-			ImgProcLog.write(e.getMessage());
+			ImgProcLog.write("Exception: "+ e.getMessage());
 			e.printStackTrace();
 		} 
 
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
-//	    WriteToFile.write("Number of cycles for this Chromosome is " + numCycles);
-		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ (System.currentTimeMillis()- evolutaionStartTime));
+		int endTime = (int) (System.currentTimeMillis()- evolutaionStartTime)/1000;
+		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ endTime/3600 + " h "+ (endTime%3600)/60 + " m");
 		
 		//Return the amount of the cell factory product if it exists
 		if(product > 0) return product;
 		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
-		else return secondPhaseController.getNumCycles()+ secondPhaseController.getPathFromLeftToRightExistence();
+		else {
+			ImgProcLog.write("Number of cycles + path = "+ secondPhaseController.getNumCycles()+ 
+					secondPhaseController.getPathFromLeftToRightExistence());
+			return secondPhaseController.getNumCycles()+ secondPhaseController.getPathFromLeftToRightExistence();
+		}
 	  }
 
 	  /**
