@@ -12,6 +12,8 @@ package examples.simpleBoolean;
 import org.jgap.*;
 import org.jgap.impl.*;
 
+import utils.ImgProcLog;
+
 /**
  * Simple class that demonstrates the basic usage of JGAP.
  *
@@ -33,7 +35,7 @@ public class SimpleExample {
    * @since 2.0
    */
   public static void main(String[] args) {
-    int numEvolutions = 500;
+    int numEvolutions = 50;
     Configuration gaConf = new DefaultConfiguration();
     gaConf.setPreservFittestIndividual(true);
     gaConf.setKeepPopulationSizeConstant(false);
@@ -65,20 +67,24 @@ public class SimpleExample {
     }
     int progress = 0;
     int percentEvolution = numEvolutions / 100;
-    for (int i = 0; i < numEvolutions; i++) {
+    
+    ImgProcLog.write("Population size = "+ 20);
+	ImgProcLog.write("Number of evolutions = "+ numEvolutions);
+    
+    for (int i = 1; i <= numEvolutions; i++) {
       genotype.evolve();
       // Print progress.
       // ---------------
-      if (percentEvolution > 0 && i % percentEvolution == 0) {
+//      if (percentEvolution > 0 && i % percentEvolution == 0) {
         progress++;
         IChromosome fittest = genotype.getFittestChromosome();
         double fitness = fittest.getFitnessValue();
-        System.out.println("Currently fittest Chromosome has fitness " +
-                           fitness);
+//        System.out.println("Currently fittest Chromosome has fitness " + fitness);
+    	ImgProcLog.write("Best solution until evolution "+ i + " is " + fitness);
 //        if (fitness >= maxFitness) {
 //          break;
 //        }
-      }
+//      }
     }
     // Print summary.
     // --------------
