@@ -39,5 +39,17 @@ data\**\*
 
 Output\**\*
 
+\bin\
+
+\lib\
+
+\doc\
+
+\data\
+
+\Output\
+
+*.con
+
 
 
