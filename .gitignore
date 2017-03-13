@@ -20,15 +20,24 @@
 *.zip
 jgapTest.con
 
-\bin\
+bin\
 
-\lib\
+lib\
 
-\doc\
+doc\
 
-\data\
+data\
 
-\Output\
+Output\
+bin\**\*
+
+lib\**\*
+
+doc\**\*
+
+data\**\*
+
+Output\**\*
 
 
 
