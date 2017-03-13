@@ -1,5 +1,9 @@
 package vnoptimization;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.Gene;
@@ -23,40 +27,29 @@ public class VNoptimization {
 
 	  /**
 	   * Starts the program.
-	   * @param args if optional first argument provided, it represents the number
-	   * of bits to use, but no more than 32
 	   */
 	  public static void main(String[] args) {
-		int numEvolutions = 50;
+		final int numEvolutions = 50;
+		final int POPULATION = 2;
 		Configuration gaConf = new DefaultConfiguration();
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(true);
 		Genotype genotype = null;
-//		int chromeSize = 2;
 		int chromeSize = 7;
-		int targetAmount = 2;
-		Gene chemStrenWAttract;
-		Gene chemStrenWGradient;
-		Gene vesselMu;
-		Gene pipeMu;
-		Gene vesselBeta;
-		Gene pipeBeta;
-		Gene vesselK;
-		Gene attachmentFactor;
-		Gene detachmentFactor;
 	    
 	   try {
-//	    	Gene[] gene = new Gene[chromeSize];
-//	    	chemStrenWAttract = gene[0] = new DoubleGene(gaConf, 0.1, 5);
-//	    	chemStrenWGradient = gene[1] = new DoubleGene(gaConf, 0.1, 5);
-//	    	vesselMu = gene[2] = new DoubleGene(gaConf, 0.2, 7 );
-//	    	pipeMu = gene[3] = new DoubleGene(gaConf, 0.2, 7 );
-//	    	vesselBeta = gene[4] = new DoubleGene(gaConf, 0.00001, 0.9 );
-//	    	pipeBeta = gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.9 );
-//	    	vesselK = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
-//	    	attachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
-//	    	detachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
-	    	
+		   /*
+	    	Gene[] gene = new Gene[chromeSize];
+	    	chemStrenWAttract = gene[0] = new DoubleGene(gaConf, 0.1, 5);
+	    	chemStrenWGradient = gene[1] = new DoubleGene(gaConf, 0.1, 5);
+	    	vesselMu = gene[2] = new DoubleGene(gaConf, 0.2, 7 );
+	    	pipeMu = gene[3] = new DoubleGene(gaConf, 0.2, 7 );
+	    	vesselBeta = gene[4] = new DoubleGene(gaConf, 0.00001, 0.9 );
+	    	pipeBeta = gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.9 );
+	    	vesselK = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
+	    	attachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
+	    	detachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
+	    	*/
 	    	Gene[] gene = new Gene[chromeSize];
 	    	gene[0] = new DoubleGene(gaConf, 1, 6);
 	    	gene[1] = new DoubleGene(gaConf, 1, 6);
@@ -66,31 +59,34 @@ public class VNoptimization {
 	    	gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.001 );
 	    	gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.01);
 	    	
-	      IChromosome sampleChromosome = new Chromosome(gaConf,
-	          gene);
-	      gaConf.setSampleChromosome(sampleChromosome);
-	      gaConf.setPopulationSize(5);
-	      gaConf.setFitnessFunction(new VNFitnessFunction(targetAmount));
-	      genotype = Genotype.randomInitialGenotype(gaConf);
+	    	IChromosome sampleChromosome = new Chromosome(gaConf, gene);
+	    	gaConf.setSampleChromosome(sampleChromosome);
+	    	gaConf.setPopulationSize(POPULATION);
+	    	gaConf.setFitnessFunction(new VNFitnessFunction());
+	    	genotype = Genotype.randomInitialGenotype(gaConf);
 	    }
 	    catch (InvalidConfigurationException e) {
-	      e.printStackTrace();
-	      System.exit( -2);
+	    	e.printStackTrace(ImgProcLog.getPrintWriter());
+	    	e.printStackTrace();
+	    	System.exit( -2);
 	    }
 
-	    for( int i = 0; i <numEvolutions*5; i++ )
-		  {
-			  IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
-			  ImgProcLog.write("Best so far ... "+ bestSolutionSoFar.getFitnessValue());
-
-		  		genotype.evolve();
-		  }
+	   DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	   Date start = new Date();
+	   ImgProcLog.write("Start Date/Time: "+ dateFormat.format(start));
+	   ImgProcLog.write("Population size = "+ POPULATION);
+	   ImgProcLog.write("Number of evolutions = "+ numEvolutions);
+	   
+	   for( int i = 1; i <= numEvolutions; i++ ){
+	    	genotype.evolve();
+	    	IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
+	    	ImgProcLog.write("Best solution so far = "+ bestSolutionSoFar.getFitnessValue());
+	   }
 	    
 	    // Print summary.
 	    // --------------
 	    IChromosome fittest = genotype.getFittestChromosome();
-	    ImgProcLog.write("Fittest Chromosome has fitness " +
-	                       fittest.getFitnessValue());
+	    ImgProcLog.write("Fittest Chromosome has fitness " + fittest.getFitnessValue());
 	  }
 	
 }

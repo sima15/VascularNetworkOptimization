@@ -20,6 +20,25 @@
 *.zip
 jgapTest.con
 
+bin\
+
+lib\
+
+doc\
+
+data\
+
+Output\
+bin\**\*
+
+lib\**\*
+
+doc\**\*
+
+data\**\*
+
+Output\**\*
+
 \bin\
 
 \lib\
@@ -29,6 +48,8 @@ jgapTest.con
 \data\
 
 \Output\
+
+*.con
 
 
 

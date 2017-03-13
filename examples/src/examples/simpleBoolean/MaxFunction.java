@@ -12,6 +12,8 @@ package examples.simpleBoolean;
 import org.jgap.*;
 import org.jgap.impl.*;
 
+import utils.ImgProcLog;
+
 /**
  * Fitness function for our example. See evaluate(...) method for details.
  *
@@ -23,7 +25,7 @@ public class MaxFunction
     extends FitnessFunction {
   /** String containing the CVS revision. Read out via reflection!*/
   private final static String CVS_REVISION = "$Revision: 1.6 $";
-
+  int iterationCounter = 0;
   /**
    * This example implementation calculates the fitness value of Chromosomes
    * using BooleanAllele implementations. It simply returns a fitness value
@@ -47,6 +49,7 @@ public class MaxFunction
    * @since 2.0
    */
   public double evaluate(IChromosome a_subject) {
+	  ImgProcLog.write("Fitness function iterationCounter " + ++iterationCounter);
     int total = 0;
 
     for (int i = 0; i < a_subject.size(); i++) {
@@ -56,7 +59,8 @@ public class MaxFunction
         total += Math.pow(2.0, (double) i);
       }
     }
-
+    ImgProcLog.write("Fitness value = "+ total);
+    ImgProcLog.write("*****************************");
     return total;
   }
 }

@@ -1,5 +1,8 @@
 package vnoptimization;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,17 +25,8 @@ public class VNFitnessFunction extends FitnessFunction {
 	  private final int ITERATIONS	= 16;
 	  
 	  private int evolutionIndex = 0;
-	  private final int m_targetAmount;
 	  int counter = 1;
 	  public static final int MAX_BOUND = 4000;
-
-	  public VNFitnessFunction(int a_targetAmount) {
-	   /* if (a_targetAmount < 1 || a_targetAmount >= MAX_BOUND) {
-	      throw new IllegalArgumentException(
-	          "Change amount must be between 1 and " + MAX_BOUND + " cents.");
-	    }*/
-	    m_targetAmount = a_targetAmount;
-	  }
 
 	  /**
 	   * Determine the fitness of the given Chromosome instance. The higher the
@@ -54,7 +48,11 @@ public class VNFitnessFunction extends FitnessFunction {
 		  //updating chemotactic Strength with attract
 		  double parameterValue0 =value.doubleValue();
 		  ImgProcLog.write("-----------------------------------------");
-		  ImgProcLog.write("Evolution number "+ ++evolutionIndex);
+		  ImgProcLog.write("GA iteration " + ++evolutionIndex);
+		  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		  Date start = new Date();
+		  ImgProcLog.write("Date/Time: "+ dateFormat.format(start));
+		  
 		  ImgProcLog.write("Parameter values");
 		  ImgProcLog.write("chemotactic Strength With Attract: "+parameterValue0);
 		  map.put("chemotactic Strength With Attract", parameterValue0 );
@@ -101,6 +99,7 @@ public class VNFitnessFunction extends FitnessFunction {
 			idynomics.func();
 		} catch (Exception e1) {
 			ImgProcLog.write("Idynomics.main(): error met while writing out random number state file");
+			e1.printStackTrace(ImgProcLog.getPrintWriter());
 			e1.printStackTrace();
 		}
 
@@ -111,80 +110,34 @@ public class VNFitnessFunction extends FitnessFunction {
 			secondPhaseController.start();
 		} catch (Exception e) {
 			ImgProcLog.write("Exception caught in GA:");
-			ImgProcLog.write("Exception: "+ e.getMessage());
-			e.printStackTrace();
+			e.printStackTrace(ImgProcLog.getPrintWriter());
 		} 
 
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
 		int endTime = (int) (System.currentTimeMillis()- evolutaionStartTime)/1000;
-		ImgProcLog.write("duration of this evolution ("+ evolutionIndex + ") = "+ endTime/3600 + " h "+ (endTime%3600)/60 + " m");
+		ImgProcLog.write("duration of this iteration ("+ evolutionIndex + ") = "+ endTime/3600
+				+ " h "+ (endTime%3600)/60 + " m");
 		
 		//Return the amount of the cell factory product if it exists
 		if(product > 0) return product;
 		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
 		else {
-			ImgProcLog.write("Number of cycles + path = "+ secondPhaseController.getNumCycles()+ 
-					secondPhaseController.getPathFromLeftToRightExistence());
-			return secondPhaseController.getNumCycles()+ secondPhaseController.getPathFromLeftToRightExistence();
+			int cyclesAndPath = secondPhaseController.getNumCycles()+ 
+					secondPhaseController.getPathFromLeftToRightExistence();
+			ImgProcLog.write("Number of cycles + path = "+ cyclesAndPath);
+			return cyclesAndPath;
 		}
 	  }
 
 	  /**
-	   * Bonus calculation of fitness value.
-	   * @param a_maxFitness maximum fitness value appliable
-	   * @param a_changeDifference change difference in coins for the coins problem
-	   * @return bonus for given change difference
-	   *
-	   * @author Klaus Meffert
-	   * @since 2.3
+	   * Returns the value of the specified gene
+	   * @param a_potentialSolution the chromosome containing the gene
+	   * @param a_position Position of the gene in chromosome (array index)
+	   * @return Value of the gene
 	   */
-	/*  protected double changeDifferenceBonus(double a_maxFitness,
-	                                         int a_changeDifference) {
-	    if (a_changeDifference == 0) {
-	      return a_maxFitness;
-	    }
-	    else {
-	      // we arbitrarily work with half of the maximum fitness as basis for non-
-	      // optimal solutions (concerning change difference)
-	      if (a_changeDifference * a_changeDifference >= a_maxFitness / 2) {
-	        return 0.0d;
-	      }
-	      else {
-	        return a_maxFitness / 2 - a_changeDifference * a_changeDifference;
-	      }
-	    }
-	  }*/
-
-	  /**
-	   * Calculates the penalty to apply to the fitness value based on the ammount
-	   * of coins in the solution
-	   *
-	   * @param a_maxFitness maximum fitness value allowed
-	   * @param a_coins number of coins in the solution
-	   * @return penalty for the fitness value base on the number of coins
-	   *
-	   * @author John Serri
-	   * @since 2.2
-	   */
-	 /* protected double computeCoinNumberPenalty(double a_maxFitness, int a_coins) {
-	    if (a_coins == 1) {
-	      // we know the solution cannot have less than one coin
-	      return 0;
-	    }
-	    else {
-	      // The more coins the more penalty, but not more than the maximum fitness
-	      // value possible. Let's avoid linear behavior and use
-	      // exponential penalty calculation instead
-	      return (Math.min(a_maxFitness, a_coins * a_coins));
-	    }
-	  }*/
-
-	  
-	  public static double getParameterValue(IChromosome a_potentialSolution,
-	                                           int a_position) {
-	    Double value =
-	        (Double) a_potentialSolution.getGene(a_position).getAllele();
+	  public static double getParameterValue(IChromosome a_potentialSolution, int a_position) {
+	    Double value = (Double) a_potentialSolution.getGene(a_position).getAllele();
 	    return value.doubleValue();
 	  }
 
