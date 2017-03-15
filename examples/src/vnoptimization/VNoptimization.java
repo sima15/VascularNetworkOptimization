@@ -13,6 +13,8 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
 
+import com.google.common.base.Throwables;
+
 import utils.ImgProcLog;
 
 public class VNoptimization {
@@ -40,13 +42,13 @@ public class VNoptimization {
 	   try {
 		   /*
 	    	Gene[] gene = new Gene[chromeSize];
-	    	chemStrenWAttract = gene[0] = new DoubleGene(gaConf, 0.1, 5);
-	    	chemStrenWGradient = gene[1] = new DoubleGene(gaConf, 0.1, 5);
-	    	vesselMu = gene[2] = new DoubleGene(gaConf, 0.2, 7 );
-	    	pipeMu = gene[3] = new DoubleGene(gaConf, 0.2, 7 );
-	    	vesselBeta = gene[4] = new DoubleGene(gaConf, 0.00001, 0.9 );
-	    	pipeBeta = gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.9 );
-	    	vesselK = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
+	    	chemStrenWAttract = gene[0] = new DoubleGene(gaConf, 1, 6);
+	    	chemStrenWGradient = gene[1] = new DoubleGene(gaConf, 1, 6);
+	    	vesselMu = gene[2] = new DoubleGene(gaConf, 1, 7 );
+	    	pipeMu = gene[3] = new DoubleGene(gaConf, 1, 7 );
+	    	vesselBeta = gene[4] = new DoubleGene(gaConf, 0.00001, 0.1 );
+	    	pipeBeta = gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.001 );
+	    	vesselK = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.01);
 	    	attachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
 	    	detachmentFactor = gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.9);
 	    	*/
@@ -66,7 +68,8 @@ public class VNoptimization {
 	    	genotype = Genotype.randomInitialGenotype(gaConf);
 	    }
 	    catch (InvalidConfigurationException e) {
-	    	e.printStackTrace(ImgProcLog.getPrintWriter());
+	    	String exception = Throwables.getStackTraceAsString(e);
+	    	ImgProcLog.write(exception);
 	    	e.printStackTrace();
 	    	System.exit( -2);
 	    }
@@ -80,7 +83,7 @@ public class VNoptimization {
 	   for( int i = 1; i <= numEvolutions; i++ ){
 	    	genotype.evolve();
 	    	IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
-	    	ImgProcLog.write("Best solution so far = "+ bestSolutionSoFar.getFitnessValue());
+	    	ImgProcLog.write("Evolution "+ i+ ", Best solution so far = "+ bestSolutionSoFar.getFitnessValue());
 	   }
 	    
 	    // Print summary.

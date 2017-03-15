@@ -9,6 +9,8 @@ import java.util.Map;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
+import com.google.common.base.Throwables;
+
 import idyno.Idynomics;
 import simulation.Controller;
 import utils.ImgProcLog;
@@ -16,7 +18,7 @@ import utils.ImgProcLog;
 
 public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
-	  private final static String CVS_REVISION = "$Revision: 2.0 $";
+	  private final static String CVS_REVISION = "$Revision: 2.1 $";
 	 
 	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
 	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
@@ -24,8 +26,7 @@ public class VNFitnessFunction extends FitnessFunction {
 	  private String name;
 	  private final int ITERATIONS	= 16;
 	  
-	  private int evolutionIndex = 0;
-	  int counter = 1;
+	  private int iterationIndex = 0;
 	  public static final int MAX_BOUND = 4000;
 
 	  /**
@@ -48,7 +49,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		  //updating chemotactic Strength with attract
 		  double parameterValue0 =value.doubleValue();
 		  ImgProcLog.write("-----------------------------------------");
-		  ImgProcLog.write("GA iteration " + ++evolutionIndex);
+		  ImgProcLog.write("GA iteration " + ++iterationIndex);
 		  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		  Date start = new Date();
 		  ImgProcLog.write("Date/Time: "+ dateFormat.format(start));
@@ -97,10 +98,11 @@ public class VNFitnessFunction extends FitnessFunction {
 		  idynomics.setProtocolPath(PROTOCOL_PATH + PROTOCOL); 
 		  try {
 			idynomics.func();
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			ImgProcLog.write("Idynomics.main(): error met while writing out random number state file");
-			e1.printStackTrace(ImgProcLog.getPrintWriter());
-			e1.printStackTrace();
+			String exception = Throwables.getStackTraceAsString(e);
+	    	ImgProcLog.write(exception);			
+	    	e.printStackTrace();
 		}
 
 		name =  LatestModifiedFileReader.getLastFolderName(REULT_PATH);
@@ -110,13 +112,14 @@ public class VNFitnessFunction extends FitnessFunction {
 			secondPhaseController.start();
 		} catch (Exception e) {
 			ImgProcLog.write("Exception caught in GA:");
-			e.printStackTrace(ImgProcLog.getPrintWriter());
+			String exception = Throwables.getStackTraceAsString(e);
+	    	ImgProcLog.write(exception);
 		} 
 
 	    double product = secondPhaseController.getProduct();
 		ImgProcLog.write("product amount for this Chromosome is " + product);
 		int endTime = (int) (System.currentTimeMillis()- evolutaionStartTime)/1000;
-		ImgProcLog.write("duration of this iteration ("+ evolutionIndex + ") = "+ endTime/3600
+		ImgProcLog.write("duration of this iteration ("+ iterationIndex + ") = "+ endTime/3600
 				+ " h "+ (endTime%3600)/60 + " m");
 		
 		//Return the amount of the cell factory product if it exists
@@ -124,7 +127,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
 		else {
 			int cyclesAndPath = secondPhaseController.getNumCycles()+ 
-					secondPhaseController.getPathFromLeftToRightExistence();
+					Controller.getPathFromLeftToRightExistence();
 			ImgProcLog.write("Number of cycles + path = "+ cyclesAndPath);
 			return cyclesAndPath;
 		}

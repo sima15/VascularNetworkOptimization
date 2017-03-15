@@ -229,7 +229,7 @@ public class Genotype
    * @since 1.0
    */
   public synchronized void evolve() {
-	  System.out.println("Inside genotype.evolve()");
+//	  System.out.println("Inside genotype.evolve()");
     IBreeder breeder = getConfiguration().getBreeder();
     Population newPop = breeder.evolve(getPopulation(), getConfiguration());
     setPopulation(newPop);
