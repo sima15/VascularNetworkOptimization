@@ -20,8 +20,8 @@ public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
 	  private final static String CVS_REVISION = "$Revision: 2.1 $";
 	 
-	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
-	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
+	  private final String REULT_PATH = "D:\\Bio research\\GA\\resultss\\experiments";
+	  private final String PROTOCOL_PATH = "D:\\Bio research\\GA\\protocols\\experiments\\";
 	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
 	  private String name;
 	  private final int ITERATIONS	= 16;
@@ -65,27 +65,27 @@ public class VNFitnessFunction extends FitnessFunction {
 
 		  //updating 
 		  double parameterValue2 = getParameterValue(a_subject,2);
-		  ImgProcLog.write("Vessel muMax: "+parameterValue2);
+		  ImgProcLog.write("Vessel muMax: \t \t"+parameterValue2);
 		  map.put("Vessel muMax",(double) parameterValue2);
 		  
 		  //updating 
 		  double parameterValue3 = getParameterValue(a_subject,3);
-		  ImgProcLog.write("Pipe muMax: "+parameterValue3);
+		  ImgProcLog.write("Pipe muMax: \t \t"+parameterValue3);
 		  map.put("Pipe muMax",(double) parameterValue3);
 		  
 		  //updating 
 		  double parameterValue4 = getParameterValue(a_subject,4);
-		  ImgProcLog.write("Vessel Beta: "+parameterValue4);
+		  ImgProcLog.write("Vessel Beta: \t \t"+parameterValue4);
 		  map.put("Vessel Beta",(double) parameterValue4);
 		  
 		  //updating 
 		  double parameterValue5 = getParameterValue(a_subject,5);
-		  ImgProcLog.write("Pipe Beta: "+parameterValue5);
+		  ImgProcLog.write("Pipe Beta: \t \t"+parameterValue5);
 		  map.put("Pipe Beta",(double) parameterValue5);
 		  
 		  //updating 
 		  double parameterValue6 = getParameterValue(a_subject,6);
-		  ImgProcLog.write("Vessel K: "+parameterValue6);
+		  ImgProcLog.write("Vessel K: \t \t"+parameterValue6);
 		  map.put("Vessel K",(double) parameterValue6);
 		  
 		  //update protocol xml of iDynomica with new values in chromosome
