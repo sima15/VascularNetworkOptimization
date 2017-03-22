@@ -2,7 +2,6 @@ package vnoptimization;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,10 +18,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.dom4j.io.SAXReader;
 public class XMLUpdater {
 
-//	String filepath = "E:\\Bio research\\GA\\protocols\\experiments\\Vascularperc30-quartSize.xml";
 	
 	static String filepath ;
 	public static void setPath(String path){
@@ -37,7 +34,6 @@ public class XMLUpdater {
 	public static void updateParameter(Map<String, Double> map){
 
 	try {
-//		File inputFile = new File(filepath);
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(filepath);
@@ -47,10 +43,8 @@ public class XMLUpdater {
 		Transformer transformer = transformerFactory.newTransformer();
 		StreamResult result = new StreamResult(new File(filepath));
 		
-//		DOMSource source;
-		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		
-		//chemotactic Strength with attract/gradient
+		//Chemotactic Strength with attract and gradient
 		NodeList company1 = doc.getElementsByTagName("chemotactic");
 		String cstrengthA = Double.toString((double) map.get("chemotactic Strength With Attract"));
 		String cstrengthG = Double.toString((double) map.get("chemotactic Strength With Gradient"));
@@ -58,22 +52,18 @@ public class XMLUpdater {
 			Node node = company1.item(i);
 			Element eElement = (Element) node;
 			if (eElement.getAttribute("withSolute").equals("Attract")){
-				System.out.println("current Chem attract: "+ eElement.getTextContent());
-				System.out.println("New value = "+ cstrengthA);
+				System.out.println("current Chem attract: "+ eElement.getTextContent()+"\t New value = "+ cstrengthA);
 				eElement.setAttribute("strength", cstrengthA);
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
 			}
 			else if (eElement.getAttribute("withSolute").equals("Gradient")){
-				System.out.println("current Chem gradient: "+ eElement.getTextContent());
-				System.out.println("New value = "+ cstrengthG);
+				System.out.println("current Chem gradient: "+ eElement.getTextContent()+ "\t New value = "+ cstrengthG);
 				eElement.setAttribute("strength", cstrengthG);
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
 			}
 		}
-        
-        System.out.println("Chemoattractant force response updated!");
         
 		
 		// Vessel and pipe muMax and vessel K;
@@ -86,8 +76,7 @@ public class XMLUpdater {
 			Node node = company2.item(i);
 			Element eElement = (Element) node;
 			if (eElement.getAttribute("name").equals("muMax")){
-				System.out.println("current V muMax: "+ eElement.getTextContent());
-				System.out.println("New value = "+ VesselMu);
+				System.out.println("current V muMax: "+ eElement.getTextContent()+ "\t New value = "+ VesselMu);
 				eElement.setTextContent(VesselMu);
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
@@ -101,8 +90,7 @@ public class XMLUpdater {
 			if (eElement.getAttribute("name").equals("muMax")){
 				index++;
 				if(index<=1) continue;
-				System.out.println("current Pipe muMax: "+ eElement.getTextContent());
-				System.out.println("New value = "+ pipeMu);
+				System.out.println("current Pipe muMax: "+ eElement.getTextContent()+"\t New value = "+ pipeMu);
 				eElement.setTextContent(pipeMu);
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
@@ -115,17 +103,14 @@ public class XMLUpdater {
 			Node node = company2.item(i);
 			Element eElement = (Element) node;
 			if (eElement.getAttribute("name").equals("Ks")){
-				System.out.println("current Ks: "+ eElement.getTextContent());
-				System.out.println("New value = "+ VesselK);
+				System.out.println("current Ks: "+ eElement.getTextContent()+ "\t New value = "+ VesselK);
 				eElement.setTextContent(VesselK);
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
 				break;
 			}
 		}
-		
-		System.out.println("vesselmu, PipeMu and Ks updated.");
-		
+				
 		// Pipe and vessel beta
 		NodeList company3 = doc.getElementsByTagName("solute");
 		String VesselBeta = Double.toString((double) map.get("Vessel Beta"));
@@ -136,8 +121,7 @@ public class XMLUpdater {
 		Element eElement1 = (Element) node1;
 		NodeList l1 = eElement1.getElementsByTagName("param");
 		Element eElement2 = (Element) l1.item(2);
-		System.out.println("current vesel beta: "+ eElement2.getTextContent());
-		System.out.println("New value = "+ VesselBeta);
+		System.out.println("current vesel beta: "+ eElement2.getTextContent()+ "\t New value = "+VesselBeta);
 		eElement2.setTextContent(VesselBeta);
 		DOMSource source = new DOMSource(doc);
 		transformer.transform(source, result);
@@ -146,12 +130,21 @@ public class XMLUpdater {
 		Element eElement3 = (Element) node3;
 		NodeList l3 = eElement3.getElementsByTagName("param");
 		Element eElement4 = (Element) l3.item(2);
-		System.out.println("current pipe beta: "+ eElement4.getTextContent());
-		System.out.println("New value = "+ pipeBeta);
+		System.out.println("current pipe beta: "+ eElement4.getTextContent()+ "\t New value = "+ pipeBeta);
 		eElement4.setTextContent(pipeBeta);
 		source = new DOMSource(doc);
 		transformer.transform(source, result);
-		
+	} catch (ParserConfigurationException pce) {
+		pce.printStackTrace();
+	} catch (IOException ioe) {
+		ioe.printStackTrace();
+	} catch (SAXException sae) {
+		sae.printStackTrace();
+	} catch (TransformerException te){
+		te.printStackTrace();
+	}
+}
+
 		
 //		NodeList company2 = doc.getElementsByTagName("reaction");
 //		String VesselMu = Double.toString((double) map.get("Vessel muMax"));
@@ -272,17 +265,5 @@ public class XMLUpdater {
 //			source = new DOMSource(doc);
 //			transformer.transform(source, result);
 
-			System.out.println("vesselBeta and PipeBeta updated. ");
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} catch (SAXException sae) {
-			sae.printStackTrace();
-		} catch (TransformerException te){
-			te.printStackTrace();
-		}
-	}
-	
+		
 }
