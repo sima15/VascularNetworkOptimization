@@ -126,10 +126,11 @@ public class VNFitnessFunction extends FitnessFunction {
 		if(product > 0) return product;
 		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
 		else {
-			int cyclesAndPath = secondPhaseController.getNumCycles()+ 
-					Controller.getPathFromLeftToRightExistence()*50;
-			ImgProcLog.write("Number of cycles + path = "+ cyclesAndPath);
-			return cyclesAndPath;
+			int cycles = secondPhaseController.getNumCycles();
+			int path = Controller.getPathFromLeftToRightExistence();
+			ImgProcLog.write("Number of cycles = "+ cycles + ", Path = "+ path);
+			if(path == 1) return (path*50)+cycles;
+			else return path;
 		}
 	  }
 

@@ -31,8 +31,8 @@ public class VNoptimization {
 	   * Starts the program.
 	   */
 	  public static void main(String[] args) {
-		final int numEvolutions = 50;
-		final int POPULATION = 2;
+		final int numEvolutions = 5000;
+		final int POPULATION = 3;
 		Configuration gaConf = new DefaultConfiguration();
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(true);
