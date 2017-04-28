@@ -20,9 +20,9 @@ public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
 	  private final static String CVS_REVISION = "$Revision: 2.1 $";
 	 
-	  private final String REULT_PATH = "D:\\Bio research\\GA\\resultss\\experiments";
-	  private final String PROTOCOL_PATH = "D:\\Bio research\\GA\\protocols\\experiments\\";
-	  private final String PROTOCOL = "Vascularperc30-quartSize-short.xml";
+	  private final String REULT_PATH = "E:\\Bio research\\GA\\resultss\\experiments";
+	  private final String PROTOCOL_PATH = "E:\\Bio research\\GA\\protocols\\experiments\\";
+	  private final String PROTOCOL = "Vasc30-quartSize-short.xml";
 	  private String name;
 	  private final int ITERATIONS	= 16;
 	  
@@ -87,6 +87,19 @@ public class VNFitnessFunction extends FitnessFunction {
 		  double parameterValue6 = getParameterValue(a_subject,6);
 		  ImgProcLog.write("Vessel K: \t \t"+parameterValue6);
 		  map.put("Vessel K",(double) parameterValue6);
+		  
+		  //updating tight junction
+		  double parameterValue7 = getParameterValue(a_subject,7);
+		  ImgProcLog.write("attachCreateFactor: \t \t"+parameterValue7);
+		  map.put("attachCreateFactor", parameterValue7);
+		  
+		  double parameterValue8 = getParameterValue(a_subject,8);
+		  ImgProcLog.write("attachDestroyFactor: \t \t"+parameterValue8);
+		  map.put("attachDestroyFactor", parameterValue8 );
+		  
+		  double parameterValue9 = getParameterValue(a_subject,9);
+		  ImgProcLog.write("tightJunctionToBoundaryStrength: \t \t"+ parameterValue9);
+		  map.put("tightJunctionToBoundaryStrength", parameterValue9);
 		  
 		  //update protocol xml of iDynomica with new values in chromosome
 		  XMLUpdater.setPath(PROTOCOL_PATH + PROTOCOL);

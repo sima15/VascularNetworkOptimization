@@ -37,7 +37,7 @@ public class VNoptimization {
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(true);
 		Genotype genotype = null;
-		int chromeSize = 7;
+		int chromeSize = 10;
 	    
 	   try {
 		   /*
@@ -60,6 +60,9 @@ public class VNoptimization {
 	    	gene[4] = new DoubleGene(gaConf, 0.00001, 0.1 );
 	    	gene[5] = new DoubleGene(gaConf, 0.0000000001, 0.001 );
 	    	gene[6] = new DoubleGene(gaConf, 0.0000000001, 0.01);
+	    	gene[7] = new DoubleGene(gaConf, 0, 6);
+	    	gene[8] = new DoubleGene(gaConf, 0, 6);
+	    	gene[9] = new DoubleGene(gaConf, 0, 6 );
 	    	
 	    	IChromosome sampleChromosome = new Chromosome(gaConf, gene);
 	    	gaConf.setSampleChromosome(sampleChromosome);

@@ -18,8 +18,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-public class XMLUpdater {
 
+
+public class XMLUpdater {
 	
 	static String filepath ;
 	public static void setPath(String path){
@@ -134,6 +135,34 @@ public class XMLUpdater {
 		eElement4.setTextContent(pipeBeta);
 		source = new DOMSource(doc);
 		transformer.transform(source, result);
+		
+		//Tight junction
+		NodeList company4 = doc.getElementsByTagName("param");
+		
+		String attachCreateFactor = Double.toString((double) map.get("attachCreateFactor"));
+		String attachDestroyFactor = Double.toString((double) map.get("attachDestroyFactor"));
+		String tightJunctionToBoundaryStrength = Double.toString((double) map.get("tightJunctionToBoundaryStrength"));
+        
+		for (int i = 0; i < company4.getLength(); i++) {
+			Node node = company4.item(i);
+			Element eElement = (Element) node;
+			if (eElement.getAttribute("name").equals("attachCreateFactor")){
+				System.out.println("current attachCreateFactor : "+ eElement.getTextContent()+"\t New value = "+ attachCreateFactor);
+				eElement.setTextContent(attachCreateFactor);
+				
+			}
+			else if (eElement.getAttribute("name").equals("attachDestroyFactor")){
+				System.out.println("current attachDestroyFactor: "+ eElement.getTextContent()+ "\t New value = "+ attachDestroyFactor);
+				eElement.setTextContent(attachDestroyFactor);
+			}
+			else if(eElement.getAttribute("name").equals("tightJunctionToBoundaryStrength")){
+				System.out.println("current tightJunctionToBoundaryStrength: "+ eElement.getTextContent()+ "\t New value = "+ tightJunctionToBoundaryStrength);
+				eElement.setTextContent( tightJunctionToBoundaryStrength);
+			}
+		}
+		source = new DOMSource(doc);
+		transformer.transform(source, result);
+		
 	} catch (ParserConfigurationException pce) {
 		pce.printStackTrace();
 	} catch (IOException ioe) {
