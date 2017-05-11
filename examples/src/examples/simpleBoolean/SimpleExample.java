@@ -68,8 +68,8 @@ public class SimpleExample {
     int progress = 0;
     int percentEvolution = numEvolutions / 100;
     
-    ImgProcLog.write("Population size = "+ 20);
-	ImgProcLog.write("Number of evolutions = "+ numEvolutions);
+//    ImgProcLog.write("Population size = "+ 20);
+//	ImgProcLog.write("Number of evolutions = "+ numEvolutions);
     
     for (int i = 1; i <= numEvolutions; i++) {
       genotype.evolve();
@@ -80,7 +80,7 @@ public class SimpleExample {
         IChromosome fittest = genotype.getFittestChromosome();
         double fitness = fittest.getFitnessValue();
 //        System.out.println("Currently fittest Chromosome has fitness " + fitness);
-    	ImgProcLog.write("Best solution until evolution "+ i + " is " + fitness);
+//    	ImgProcLog.write("Best solution until evolution "+ i + " is " + fitness);
 //        if (fitness >= maxFitness) {
 //          break;
 //        }

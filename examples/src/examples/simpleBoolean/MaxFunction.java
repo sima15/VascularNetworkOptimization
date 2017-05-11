@@ -49,7 +49,7 @@ public class MaxFunction
    * @since 2.0
    */
   public double evaluate(IChromosome a_subject) {
-	  ImgProcLog.write("Fitness function iterationCounter " + ++iterationCounter);
+//	  ImgProcLog.write("Fitness function iterationCounter " + ++iterationCounter);
     int total = 0;
 
     for (int i = 0; i < a_subject.size(); i++) {
@@ -59,8 +59,8 @@ public class MaxFunction
         total += Math.pow(2.0, (double) i);
       }
     }
-    ImgProcLog.write("Fitness value = "+ total);
-    ImgProcLog.write("*****************************");
+//    ImgProcLog.write("Fitness value = "+ total);
+//    ImgProcLog.write("*****************************");
     return total;
   }
 }

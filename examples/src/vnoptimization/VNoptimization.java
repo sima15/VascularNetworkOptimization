@@ -1,8 +1,12 @@
 package vnoptimization;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static java.nio.file.StandardCopyOption.*;
+import java.nio.file.Path;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -15,6 +19,7 @@ import org.jgap.impl.DoubleGene;
 
 import com.google.common.base.Throwables;
 
+import iDynoOptimizer.MOEAFramework26.src.org.moeaframework.util.io.FileUtils;
 import utils.ImgProcLog;
 
 public class VNoptimization {
@@ -31,6 +36,26 @@ public class VNoptimization {
 	   * Starts the program.
 	   */
 	  public static void main(String[] args) {
+		  
+		  DateFormat folderNameFormat = new SimpleDateFormat("yyyyMMdd_HHmm");  
+		  Date start = new Date();
+		  String resultDirName = folderNameFormat.format(start);
+		  String RESULT_PATH = "E:\\Bio research\\GA\\new runs\\"+ resultDirName;
+		  new File(RESULT_PATH).mkdir();
+		  RESULT_PATH += File.separator;
+		  VNFitnessFunction.setResultdirName(RESULT_PATH);
+		  File source = new File("E:\\Bio research\\GA\\protocols\\experiments\\E30-quart-short-test.xml");
+		  File destination = new File(RESULT_PATH + "E30-quart-short-test.xml");
+		  try {
+			FileUtils.copy(source, destination);
+		} catch (IOException e) {
+			e.printStackTrace();
+			String exception = Throwables.getStackTraceAsString(e);
+			ImgProcLog.write(RESULT_PATH, exception);
+		}
+		  VNFitnessFunction.setProtocolPath(RESULT_PATH + "E30-quart-short-test.xml");
+		  
+		  
 		final int numEvolutions = 5000;
 		final int POPULATION = 3;
 		Configuration gaConf = new DefaultConfiguration();
@@ -72,27 +97,27 @@ public class VNoptimization {
 	    }
 	    catch (InvalidConfigurationException e) {
 	    	String exception = Throwables.getStackTraceAsString(e);
-	    	ImgProcLog.write(exception);
+	    	ImgProcLog.write(RESULT_PATH, exception);
 	    	e.printStackTrace();
 	    	System.exit( -2);
 	    }
 
+	   
 	   DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-	   Date start = new Date();
-	   ImgProcLog.write("Start Date/Time: "+ dateFormat.format(start));
-	   ImgProcLog.write("Population size = "+ POPULATION);
-	   ImgProcLog.write("Number of evolutions = "+ numEvolutions);
+	   ImgProcLog.write(RESULT_PATH, "Start Date/Time: "+ dateFormat.format(start));
+	   ImgProcLog.write(RESULT_PATH, "Population size = "+ POPULATION);
+	   ImgProcLog.write(RESULT_PATH, "Number of evolutions = "+ numEvolutions);
 	   
 	   for( int i = 1; i <= numEvolutions; i++ ){
 	    	genotype.evolve();
 	    	IChromosome bestSolutionSoFar = genotype.getFittestChromosome();
-	    	ImgProcLog.write("Evolution "+ i+ ", Best solution so far = "+ bestSolutionSoFar.getFitnessValue());
+	    	ImgProcLog.write(RESULT_PATH, "Evolution "+ i+ ", Best solution so far = "+ bestSolutionSoFar.getFitnessValue());
 	   }
 	    
 	    // Print summary.
 	    // --------------
 	    IChromosome fittest = genotype.getFittestChromosome();
-	    ImgProcLog.write("Fittest Chromosome has fitness " + fittest.getFitnessValue());
+	    ImgProcLog.write(RESULT_PATH, "Fittest Chromosome has fitness " + fittest.getFitnessValue());
 	  }
 	
 }
