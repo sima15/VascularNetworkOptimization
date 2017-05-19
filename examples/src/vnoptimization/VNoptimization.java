@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static java.nio.file.StandardCopyOption.*;
-import java.nio.file.Path;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -37,15 +35,16 @@ public class VNoptimization {
 	   */
 	  public static void main(String[] args) {
 		  
-		  DateFormat folderNameFormat = new SimpleDateFormat("yyyyMMdd_HHmm");  
+		  DateFormat folderNameFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");  
 		  Date start = new Date();
 		  String resultDirName = folderNameFormat.format(start);
 		  String RESULT_PATH = "E:\\Bio research\\GA\\new runs\\"+ resultDirName;
 		  new File(RESULT_PATH).mkdir();
 		  RESULT_PATH += File.separator;
 		  VNFitnessFunction.setResultdirName(RESULT_PATH);
-		  File source = new File("E:\\Bio research\\GA\\protocols\\experiments\\E30-quart-short-test.xml");
-		  File destination = new File(RESULT_PATH + "E30-quart-short-test.xml");
+		  final String PROTOCOL = "Vasc30-quartSize-short.xml";
+		  File source = new File("E:\\Bio research\\GA\\protocols\\experiments\\" + PROTOCOL);
+		  File destination = new File(RESULT_PATH + PROTOCOL);
 		  try {
 			FileUtils.copy(source, destination);
 		} catch (IOException e) {
@@ -53,11 +52,11 @@ public class VNoptimization {
 			String exception = Throwables.getStackTraceAsString(e);
 			ImgProcLog.write(RESULT_PATH, exception);
 		}
-		  VNFitnessFunction.setProtocolPath(RESULT_PATH + "E30-quart-short-test.xml");
+		  VNFitnessFunction.setProtocolPath(RESULT_PATH + PROTOCOL);
 		  
 		  
 		final int numEvolutions = 5000;
-		final int POPULATION = 3;
+		final int POPULATION = 5;
 		Configuration gaConf = new DefaultConfiguration();
 		gaConf.setPreservFittestIndividual(true);
 		gaConf.setKeepPopulationSizeConstant(true);
