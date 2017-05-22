@@ -28,7 +28,7 @@ public class VNoptimization {
 	 */
 
 	  /** String containing the CVS revision. Read out via reflection!*/
-	  private static final String CVS_REVISION = "$Revision: 2.0 $";
+	  private static final String CVS_REVISION = "$Revision: 2.1 $";
 
 	  /**
 	   * Starts the program.

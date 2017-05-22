@@ -10,7 +10,6 @@ public class LatestModifiedFileReader {
 	
 	public static String getLastFolderName(String path) {
 		/* Get the newest folder  */
-//		String filePath="E:\\Courses\\cs6600\\Project\\program\\resultss\\experiments";
 	    File dir = new File(path);
 	    File[] files = dir.listFiles();
 	    if (files.length > 0) {

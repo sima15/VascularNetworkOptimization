@@ -2,6 +2,7 @@ package vnoptimization;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,7 +23,16 @@ import org.xml.sax.SAXException;
 
 public class XMLUpdater {
 	
+	/**
+	 * The path to the protocol file where values can be updated based on the given 
+	 * values in the parameterMap
+	 */
 	static String filepath ;
+	static Map<String, Double> parameterMap; 
+	static Document doc;
+	static Transformer transformer;
+	static StreamResult result;
+	
 	public static void setPath(String path){
 		filepath = path;
 	}
@@ -34,21 +44,42 @@ public class XMLUpdater {
 	 */
 	public static void updateParameter(Map<String, Double> map){
 
-	try {
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse(filepath);
-		
-
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-		StreamResult result = new StreamResult(new File(filepath));
-		
-		
-		//Chemotactic Strength with attract and gradient
+		try {
+			
+			parameterMap = map;
+			
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			doc = docBuilder.parse(filepath);
+	
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			transformer = transformerFactory.newTransformer();
+			result = new StreamResult(new File(filepath));
+			
+			updateChemStrength();
+			updateMuAndK();
+			updateBetas();
+			updateTightJunctions();
+			
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (SAXException sae) {
+			sae.printStackTrace();
+		} catch (TransformerException te){
+			te.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Updates Chemotactic Strength with attract and gradient inside the corresponding protocol file
+	 * @throws TransformerException
+	 */
+	static void updateChemStrength() throws TransformerException{
 		NodeList company1 = doc.getElementsByTagName("chemotactic");
-		String cstrengthA = Double.toString((double) map.get("chemotactic Strength With Attract"));
-		String cstrengthG = Double.toString((double) map.get("chemotactic Strength With Gradient"));
+		String cstrengthA = Double.toString((double) parameterMap.get("chemotactic Strength With Attract"));
+		String cstrengthG = Double.toString((double) parameterMap.get("chemotactic Strength With Gradient"));
         for (int i = 0; i < company1.getLength(); i++) {
 			Node node = company1.item(i);
 			Element eElement = (Element) node;
@@ -65,57 +96,66 @@ public class XMLUpdater {
 				transformer.transform(source, result);
 			}
 		}
-        
-		
-		// Vessel and pipe muMax and vessel K;
-        NodeList company2 = doc.getElementsByTagName("param");
-		String VesselMu = Double.toString((double) map.get("Vessel muMax"));
-		String pipeMu = Double.toString((double) map.get("Pipe muMax"));
-		String VesselK = Double.toString((double) map.get("Vessel K"));
-		
-		for (int i = 0; i < company2.getLength(); i++) {
-			Node node = company2.item(i);
-			Element eElement = (Element) node;
-			if (eElement.getAttribute("name").equals("muMax")){
-				System.out.println("current V muMax: "+ eElement.getTextContent()+ "\t New value = "+ VesselMu);
-				eElement.setTextContent(VesselMu);
-				DOMSource source = new DOMSource(doc);
-				transformer.transform(source, result);
-				break;
+	}
+	
+	/**
+	 * Updates vascular and circulatory cells production rate inside the corresponding protocol file
+	 * @throws TransformerException
+	 */
+	static void updateMuAndK() throws TransformerException{
+		 NodeList company2 = doc.getElementsByTagName("param");
+			String VesselMu = Double.toString((double) parameterMap.get("Vessel muMax"));
+			String pipeMu = Double.toString((double) parameterMap.get("Pipe muMax"));
+			String VesselK = Double.toString((double) parameterMap.get("Vessel K"));
+			
+			for (int i = 0; i < company2.getLength(); i++) {
+				Node node = company2.item(i);
+				Element eElement = (Element) node;
+				if (eElement.getAttribute("name").equals("muMax")){
+					System.out.println("current V muMax: "+ eElement.getTextContent()+ "\t New value = "+ VesselMu);
+					eElement.setTextContent(VesselMu);
+					DOMSource source = new DOMSource(doc);
+					transformer.transform(source, result);
+					break;
+				}
 			}
-		}
-		int index =0;
-		for (int i = 0; i < company2.getLength(); i++) {
-			Node node = company2.item(i);
-			Element eElement = (Element) node;
-			if (eElement.getAttribute("name").equals("muMax")){
-				index++;
-				if(index<=1) continue;
-				System.out.println("current Pipe muMax: "+ eElement.getTextContent()+"\t New value = "+ pipeMu);
-				eElement.setTextContent(pipeMu);
-				DOMSource source = new DOMSource(doc);
-				transformer.transform(source, result);
-				break;
+			int index =0;
+			for (int i = 0; i < company2.getLength(); i++) {
+				Node node = company2.item(i);
+				Element eElement = (Element) node;
+				if (eElement.getAttribute("name").equals("muMax")){
+					index++;
+					if(index<=1) continue;
+					System.out.println("current Pipe muMax: "+ eElement.getTextContent()+"\t New value = "+ pipeMu);
+					eElement.setTextContent(pipeMu);
+					DOMSource source = new DOMSource(doc);
+					transformer.transform(source, result);
+					break;
+				}
+				
 			}
 			
-		}
-		
-		for (int i = 0; i < company2.getLength(); i++) {
-			Node node = company2.item(i);
-			Element eElement = (Element) node;
-			if (eElement.getAttribute("name").equals("Ks")){
-				System.out.println("current Ks: "+ eElement.getTextContent()+ "\t New value = "+ VesselK);
-				eElement.setTextContent(VesselK);
-				DOMSource source = new DOMSource(doc);
-				transformer.transform(source, result);
-				break;
+			for (int i = 0; i < company2.getLength(); i++) {
+				Node node = company2.item(i);
+				Element eElement = (Element) node;
+				if (eElement.getAttribute("name").equals("Ks")){
+					System.out.println("current Ks: "+ eElement.getTextContent()+ "\t New value = "+ VesselK);
+					eElement.setTextContent(VesselK);
+					DOMSource source = new DOMSource(doc);
+					transformer.transform(source, result);
+					break;
+				}
 			}
-		}
-				
-		// Pipe and vessel beta
+	}
+	
+	/**
+	 * Updates decay rate of vascular and circulatory cells' secretion inside the corresponding protocol file
+	 * @throws TransformerException
+	 */
+	static void updateBetas() throws TransformerException{
 		NodeList company3 = doc.getElementsByTagName("solute");
-		String VesselBeta = Double.toString((double) map.get("Vessel Beta"));
-		String pipeBeta = Double.toString((double) map.get("Pipe Beta"));
+		String VesselBeta = Double.toString((double) parameterMap.get("Vessel Beta"));
+		String pipeBeta = Double.toString((double) parameterMap.get("Pipe Beta"));
 		
 		
 		Node node1 = company3.item(1);
@@ -135,164 +175,47 @@ public class XMLUpdater {
 		eElement4.setTextContent(pipeBeta);
 		source = new DOMSource(doc);
 		transformer.transform(source, result);
-		
-		//Tight junction
+	}
+	
+	/**
+	 * Updates tight junction values of vascular and circulatory cells' secretion inside the corresponding protocol file
+	 * @throws TransformerException
+	 */
+	static void updateTightJunctions() throws TransformerException{
 		NodeList company4 = doc.getElementsByTagName("param");
 		
-		String attachCreateFactor = Double.toString((double) map.get("attachCreateFactor"));
-		String attachDestroyFactor = Double.toString((double) map.get("attachDestroyFactor"));
-		String tightJunctionToBoundaryStrength = Double.toString((double) map.get("tightJunctionToBoundaryStrength"));
+		String attachCreateFactor = Double.toString((double) parameterMap.get("attachCreateFactor"));
+		String attachDestroyFactor = Double.toString((double) parameterMap.get("attachDestroyFactor"));
+		String tightJunctionToBoundaryStrength = Double.toString((double) parameterMap.get("tightJunctionToBoundaryStrength"));
         
+		boolean createF = false;
+		boolean destroyF = false;
+		boolean boundaryF = false;
+		
 		for (int i = 0; i < company4.getLength(); i++) {
 			Node node = company4.item(i);
 			Element eElement = (Element) node;
 			if (eElement.getAttribute("name").equals("attachCreateFactor")){
-				System.out.println("current attachCreateFactor : "+ eElement.getTextContent()+"\t New value = "+ attachCreateFactor);
+				if(!createF)
+					System.out.println("current attachCreateFactor : "+ eElement.getTextContent()+"\t New value = "+ attachCreateFactor);
 				eElement.setTextContent(attachCreateFactor);
-				
+				createF = true;
 			}
 			else if (eElement.getAttribute("name").equals("attachDestroyFactor")){
-				System.out.println("current attachDestroyFactor: "+ eElement.getTextContent()+ "\t New value = "+ attachDestroyFactor);
+				if(!destroyF)
+					System.out.println("current attachDestroyFactor: "+ eElement.getTextContent()+ "\t New value = "+ attachDestroyFactor);
 				eElement.setTextContent(attachDestroyFactor);
+				destroyF = true;
 			}
 			else if(eElement.getAttribute("name").equals("tightJunctionToBoundaryStrength")){
-				System.out.println("current tightJunctionToBoundaryStrength: "+ eElement.getTextContent()+ "\t New value = "+ tightJunctionToBoundaryStrength);
+				if(!boundaryF)
+					System.out.println("current tightJunctionToBoundaryStrength: "+ eElement.getTextContent()+ "\t New value = "
+					+ tightJunctionToBoundaryStrength);
 				eElement.setTextContent( tightJunctionToBoundaryStrength);
+				boundaryF = true;
 			}
 		}
-		source = new DOMSource(doc);
+		DOMSource source = new DOMSource(doc);
 		transformer.transform(source, result);
-		
-	} catch (ParserConfigurationException pce) {
-		pce.printStackTrace();
-	} catch (IOException ioe) {
-		ioe.printStackTrace();
-	} catch (SAXException sae) {
-		sae.printStackTrace();
-	} catch (TransformerException te){
-		te.printStackTrace();
 	}
-}
-
-		
-//		NodeList company2 = doc.getElementsByTagName("reaction");
-//		String VesselMu = Double.toString((double) map.get("Vessel muMax"));
-//		String pipeMu = Double.toString((double) map.get("Pipe muMax"));
-//		String VesselK = Double.toString((double) map.get("Vessel K"));
-//		
-//		for (int i = 0; i < company2.getLength(); i++) {
-//			Node node = company2.item(i);
-//			Element eElement = (Element) node;
-//			if (eElement.getAttribute("name").equals("AttractSecretion")) {
-//				NodeList subComp1 = eElement.getElementsByTagName("param");
-//				for(int j=0; j<subComp1.getLength(); j++){
-//					Node node2 = subComp1.item(i);
-//					System.out.println(node2.getNodeName());
-//					Element eElement2 = (Element) node2;
-//					System.out.println("Param name: " + eElement2.getAttribute("name"));
-//					if(eElement2.getAttribute("name").equals("muMax")){
-//					
-//						System.out.println("current vessel muMax: or "+eElement2.getTagName() + 
-//								eElement2.getTextContent());
-//						System.out.println("New value = "+ VesselMu);
-//						eElement2.setTextContent(VesselMu);
-//						DOMSource source = new DOMSource(doc);
-//						transformer.transform(source, result);
-//						break;
-//					}
-//				}
-//			}
-//			break;
-//		}
-//			
-//		for (int i = 0; i < company2.getLength(); i++) {
-//			Node node = company2.item(i);
-//			Element eElement = (Element) node;
-//			if (eElement.getAttribute("name").equals("AttractSecretion")) {
-//				NodeList subComp1 = eElement.getElementsByTagName("param");
-//				for(int j=0; j<subComp1.getLength(); j++){
-//					Node node2 = subComp1.item(i);
-//					System.out.println(node2.getNodeName());
-//					Element eElement2 = (Element) node2;
-//					System.out.println("Param name: " + eElement2.getAttribute("name"));
-//					if(eElement2.getAttribute("name").equals("Ks")){
-//						System.out.println("current Ks: "+eElement2.getTagName() + 
-//								eElement2.getTextContent());
-//						System.out.println("New value = "+ VesselK);
-//						eElement2.setTextContent(VesselK);
-//						DOMSource source = new DOMSource(doc);
-//						transformer.transform(source, result);
-//						break;
-//					}
-//			
-//				}
-//			}
-//			break;
-//		}
-//		for (int i = 0; i < company2.getLength(); i++) {
-//			Node node = company2.item(i);
-//			Element eElement = (Element) node;
-//			if (eElement.getAttribute("name").equals("GradientSecretion")){
-//				NodeList subComp1 = eElement.getElementsByTagName("param");
-//				for(int j=0; j<subComp1.getLength(); j++){
-//					Node node2 = subComp1.item(i);
-//					Element eElement2 = (Element) node2;
-//					if(eElement2.getAttribute("name").equals("muMax")){
-//						System.out.println("current pipeMu: "+ eElement2.getTextContent());
-//						System.out.println("New value = "+ pipeMu);
-//						eElement2.setTextContent(pipeMu);
-//						DOMSource source = new DOMSource(doc);
-//						transformer.transform(source, result);
-//						break;
-//					}
-//				}				
-//			}
-//			break;
-//		}
-//		source = new DOMSource(doc);
-//		transformer.transform(source, result);
-//		System.out.println("vesselmu, PipeMu and Ks updated.");
-//	
-//		// Pipe and vessel beta
-//		NodeList company3 = doc.getElementsByTagName("solute");
-//		String VesselBeta = Double.toString((double) map.get("Vessel Beta"));
-//		String pipeBeta = Double.toString((double) map.get("Pipe Beta"));
-//		
-		
-//		for (int i = 0; i < company3.getLength(); i++) {
-//			Node node = company3.item(i);
-//			Element eElement = (Element) node;
-//			if (eElement.getAttribute("name").equals("Attract")) {
-//				NodeList subComp1 = eElement.getElementsByTagName("param");
-//				for(int j=0; j<subComp1.getLength(); j++){
-//					Node node2 = subComp1.item(i);
-//					Element eElement2 = (Element) node2;
-//					if(eElement2.getAttribute("name").equals("decayRate")){
-//						System.out.println("current vessel decay rate: "+ eElement2.getTextContent());
-//						System.out.println("New value = "+ VesselBeta);
-//						eElement2.setTextContent(VesselBeta);
-//						DOMSource source = new DOMSource(doc);
-//						transformer.transform(source, result);
-//					}
-//				}
-//			}
-//			else if (eElement.getAttribute("name").equals("Gradient")){
-//				NodeList subComp1 = eElement.getElementsByTagName("param");
-//				for(int j=0; j<subComp1.getLength(); j++){
-//					Node node2 = subComp1.item(i);
-//					Element eElement2 = (Element) node2;
-//					if(eElement2.getAttribute("name").equals("decayRate")){
-//						System.out.println("current pipe decay rate: "+ eElement2.getTextContent());
-//						System.out.println("New value = "+ pipeBeta);
-//						eElement2.setTextContent(pipeBeta);
-//							DOMSource source = new DOMSource(doc);
-//							transformer.transform(source, result);
-//					}
-//				}				
-//			}
-//		}
-//			source = new DOMSource(doc);
-//			transformer.transform(source, result);
-
-		
 }

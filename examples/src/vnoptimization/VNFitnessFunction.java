@@ -138,7 +138,7 @@ public class VNFitnessFunction extends FitnessFunction {
 		
 		//Return the amount of the cell factory product if it exists
 		if(product > 0) return product;
-		//If cell factory could not produce anything, return number of cycles and if there was a path from left to right
+		//If cell factory could not produce anything, return the number of cycles if there was a path from left to right
 		else {
 			int cycles = secondPhaseController.getNumCycles();
 			int path = Controller.getPathFromLeftToRightExistence();
