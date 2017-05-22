@@ -22,7 +22,7 @@ import utils.ImgProcLog;
 
 public class VNoptimization {
 	/**
-	 * Usage of JGAP to optimize vascular cell's production.
+	 * Usage of JGAP to maximize cell culture production.
 	 *
 	 * @author Sima Mehri
 	 */
@@ -52,6 +52,7 @@ public class VNoptimization {
 			String exception = Throwables.getStackTraceAsString(e);
 			ImgProcLog.write(RESULT_PATH, exception);
 		}
+		  VNFitnessFunction.setProtocolName(PROTOCOL);
 		  VNFitnessFunction.setProtocolPath(RESULT_PATH + PROTOCOL);
 		  
 		  

@@ -20,10 +20,9 @@ public class VNFitnessFunction extends FitnessFunction {
 	  /** String containing the CVS revision. Read out via reflection!*/
 	  private final static String CVS_REVISION = "$Revision: 2.1 $";
 	 
-	  private static String PROTOCOL_PATH; // = "E:\\Bio research\\GA\\protocols\\experiments\\";
+	  private static String PROTOCOL_PATH; 
 	  private static String RESULT_PATH;
-//	  private static final String PROTOCOL = "Vasc30-quartSize-short.xml";
-	  private static final String PROTOCOL = "E30-quart-short-test.xml";
+	  private static String PROTOCOL; 
 	  private String name;
 	  private final int ITERATIONS	= 16;
 	  
@@ -166,5 +165,9 @@ public class VNFitnessFunction extends FitnessFunction {
 
 	  public static void setProtocolPath (String path){
 		  PROTOCOL_PATH = path;
+	  }
+	  
+	  public static void setProtocolName(String name){
+		  PROTOCOL = name;
 	  }
 }
