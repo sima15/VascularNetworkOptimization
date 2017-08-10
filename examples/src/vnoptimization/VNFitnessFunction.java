@@ -123,6 +123,8 @@ public class VNFitnessFunction extends FitnessFunction {
 		
 		Controller secondPhaseController = new Controller(name, PROTOCOL, RESULT_PATH, ITERATIONS);
 		try {
+			secondPhaseController.setMuMAx(parameterValue2);
+			secondPhaseController.setK(parameterValue6); 
 			secondPhaseController.start();
 		} catch (Exception e) {
 			ImgProcLog.write(RESULT_PATH, "Exception caught in GA:");
