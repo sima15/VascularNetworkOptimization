@@ -1,0 +1,33 @@
+<idynomics>
+ <simulation iterate="0" time="0.0" unit="hour">
+<bulk name="MyTank">
+<solute name="ChemotacticNutrient" unit="g.L-1">0.0</solute>
+<solute name="Attract" unit="g.L-1">0.0</solute>
+<solute name="Gradient" unit="g.L-1">0.0</solute>
+<solute name="Nutrient" unit="g.L-1">0.0</solute>
+<solute name="Product" unit="g.L-1">0.0</solute>
+<solute name="Evaluator" unit="g.L-1">0.0</solute>
+<uptake_rate name="ChemotacticNutrient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Attract" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Gradient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Nutrient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Product" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Evaluator" unit="g.L-1.hour-1">0.0</uptake_rate>
+</bulk>
+<bulk name="MySecondTank">
+<solute name="ChemotacticNutrient" unit="g.L-1">30.000000000000004</solute>
+<solute name="Attract" unit="g.L-1">0.0</solute>
+<solute name="Gradient" unit="g.L-1">0.0</solute>
+<solute name="Nutrient" unit="g.L-1">0.0</solute>
+<solute name="Product" unit="g.L-1">0.0</solute>
+<solute name="Evaluator" unit="g.L-1">0.0</solute>
+<uptake_rate name="ChemotacticNutrient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Attract" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Gradient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Nutrient" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Product" unit="g.L-1.hour-1">0.0</uptake_rate>
+<uptake_rate name="Evaluator" unit="g.L-1.hour-1">0.0</uptake_rate>
+</bulk>
+
+</simulation>
+</idynomics>

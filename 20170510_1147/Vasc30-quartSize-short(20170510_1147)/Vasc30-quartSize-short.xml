@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+
+#########################################################################
+ iDynoMiCS: individual-based Dynamics of Microbial Communities Simulator
+#########################################################################
+
+--><idynomics>
+  <!--#####################################################################
+		SIMULATOR SECTION
+	######################################################################-->
+  <simulator>
+    <param name="restartPreviousRun">false</param>
+    <param name="randomSeed">5515</param>
+    <param name="outputPeriod" unit="hour">1</param>
+    <timeStep>
+      <param name="adaptive">false</param>
+      <param name="timeStepIni" unit="hour">.05</param>
+      <param name="timeStepMin" unit="hour">0.025</param>
+      <param name="timeStepMax" unit="hour">1</param>
+      <param name="endOfSimulation" unit="hour">16</param>
+    </timeStep>
+    <!-- The AGENTTIMESTEP which should always be EQUAL or LOWER than the global time step -->
+    <param name="agentTimeStep" unit="hour">0.05</param>
+  </simulator>
+  <!--#####################################################################
+		INPUT SECTION
+	######################################################################-->
+  <input>
+    <param name="useAgentFile">false</param>
+    <param name="inputAgentFileURL">agent_State(last).xml</param>
+    <param name="useBulkFile">false</param>
+    <param name="inputBulkFileURL">env_Sum(last).xml</param>
+  </input>
+  <!--#####################################################################
+		SOLUTES AND BIOMASS TYPES SECTION
+	######################################################################-->
+  <solute domain="MyYeastColony" name="ChemotacticNutrient">
+    <param name="diffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <solute domain="MyYeastColony" name="Attract">
+    <param name="diffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="decayRate">0.016628475627726957</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <solute domain="MyYeastColony" name="Gradient">
+    <param name="diffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-9</param>
+    <param name="decayRate">2.73595928711345E-4</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <solute domain="MyYeastColony" name="Nutrient">
+    <param name="diffusivity" unit="m2.day-1">8.64e-11</param>
+    <!--this and next two solutes are more complex than previous, so should have lower diffusivity-->
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-11</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <solute domain="MyYeastColony" name="Product">
+    <param name="diffusivity" unit="m2.day-1">8.64e-11</param>
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-11</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <solute domain="MyYeastColony" name="Evaluator">
+    <param name="diffusivity" unit="m2.day-1">8.64e-11</param>
+    <param name="airDiffusivity" unit="m2.day-1">8.64e-11</param>
+    <param name="writeOutput">true</param>
+  </solute>
+  <particle name="biomass">
+    <param name="density" unit="g.L-1">150</param>
+  </particle>
+  <particle name="inert">
+    <param name="density" unit="g.L-1">150</param>
+  </particle>
+  <particle name="capsule">
+    <param name="density" unit="g.L-1">75</param>
+  </particle>
+  <!--#####################################################################
+		WORLD SECTION
+	######################################################################-->
+  <world>
+    <bulk name="MyTank">
+      <param name="isConstant">true</param>
+      <param name="D" unit="h-1">0.6</param>
+      <solute name="Attract">
+        <param name="Sbulk" unit="g.L-1">0.0</param>
+        <param name="Sin" unit="g.L-1">0</param>
+        <param name="isConstant">true</param>
+      </solute>
+      <solute name="Gradient">
+        <param name="Sbulk" unit="g.L-1">0.0</param>
+        <param name="Sin" unit="g.L-1">0</param>
+        <param name="isConstant">true</param>
+      </solute>
+      <solute name="Nutrient">
+        <param name="Sbulk" unit="g.L-1">0.0</param>
+        <param name="Sin" unit="g.L-1">0</param>
+        <param name="isConstant">true</param>
+      </solute>
+      <solute name="Product">
+        <param name="Sbulk" unit="g.L-1">0.0</param>
+        <param name="Sin" unit="g.L-1">0</param>
+        <param name="isConstant">true</param>
+      </solute>
+      <solute name="Evaluator">
+        <param name="Sbulk" unit="g.L-1">0.0</param>
+        <param name="Sin" unit="g.L-1">0</param>
+        <param name="isConstant">true</param>
+      </solute>
+    </bulk>
+    <bulk name="MySecondTank">
+      <!--This bulk is attached to the bottom of the grid and provide the nutrients necessary for the chemoattractant secretion-->
+      <solute name="ChemotacticNutrient">
+        <param name="Sbulk" unit="g.L-1">30</param>
+        <param name="Sin" unit="g.L-1">30</param>
+        <param name="isConstant">true</param>
+      </solute>
+    </bulk>
+    <computationDomain name="MyYeastColony">
+      <grid nDim="2" nI="65" nJ="129" nK="1"/>
+      <param name="resolution" unit="um">4</param>
+      <param name="boundaryLayer" unit="um">1</param>
+      <param name="biofilmDiffusivity">0.8</param>
+      <param name="specificArea" unit="m2.m-3">80</param>
+      <!-- This makes the two sides of the grid(In the rendered picture, top and bottom continous and making it infinite cyclic)-->
+      <boundaryCondition class="BoundaryCyclic" name="y0z">
+        <shape class="Planar">
+          <param name="pointIn" x="-1" y="0" z="0"/>
+          <param name="vectorOut" x="-1" y="0" z="0"/>
+        </shape>
+        <shape class="Planar">
+          <param name="pointIn" x="65" y="0" z="0"/>
+          <param name="vectorOut" x="1" y="0" z="0"/>
+        </shape>
+      </boundaryCondition>
+      <boundaryCondition class="BoundaryGasMembrane" name="x0z">
+        <param name="canAttachTo">true</param>
+        <param name="bulk">MyTank</param>
+        <param detail="Attract" name="isPermeableTo" unit="m2.day-1">8.64e-9</param>
+        <param detail="Gradient" name="isPermeableTo" unit="m2.day-1">8.64e-9</param>
+        <param detail="Nutrient" name="isPermeableTo" unit="m2.day-1">8.64e-11</param>
+        <param detail="Product" name="isPermeableTo" unit="m2.day-1">8.64e-11</param>
+        <shape class="Planar">
+          <param name="pointIn" x="0" y="-1" z="0"/>
+          <param name="vectorOut" x="0" y="-1" z="0"/>
+        </shape>
+      </boundaryCondition>
+      <boundaryCondition class="BoundaryGasMembrane" name="xNz">
+        <param name="canAttachTo">true</param>
+        <param name="bulk">MyTank</param>
+        <param detail="Attract" name="isPermeableTo" unit="m2.day-1">8.64e-9</param>
+        <param detail="Gradient" name="isPermeableTo" unit="m2.day-1">8.64e-9</param>
+        <param detail="Nutrient" name="isPermeableTo" unit="m2.day-1">8.64e-11</param>
+        <param detail="Product" name="isPermeableTo" unit="m2.day-1">8.64e-11</param>
+        <shape class="Planar">
+          <param name="pointIn" x="0" y="129" z="0"/>
+          <param name="vectorOut" x="0" y="1" z="0"/>
+        </shape>
+      </boundaryCondition>
+      <boundaryCondition class="BoundaryGasMembrane" name="x0y">
+        <param name="bulk">MySecondTank</param>
+        <param detail="ChemotacticNutrient" name="isPermeableTo" unit="m2.day-1">8.64e-9</param>
+        <shape class="Planar">
+          <param name="pointIn" x="0" y="0" z="-1"/>
+          <param name="vectorOut" x="0" y="0" z="-1"/>
+        </shape>
+      </boundaryCondition>
+      <boundaryCondition class="BoundaryZeroFlux" name="x0y">
+        <shape class="Planar">
+          <param name="pointIn" x="0" y="0" z="1"/>
+          <param name="vectorOut" x="0" y="0" z="1"/>
+        </shape>
+      </boundaryCondition>
+    </computationDomain>
+  </world>
+  <!--#####################################################################
+		REACTION SECTION
+	######################################################################-->
+  <!--Replaced the monod kinetic factor to chemotactic nutrient which provides the nutrition for the chemotactic cells initially-->
+  <reaction catalyzedBy="biomass" class="ReactionFactor" name="AttractSecretion">
+    <param name="muMax" unit="hour-1">5.84272825283135</param>
+    <kineticFactor class="MonodKinetic" solute="ChemotacticNutrient">
+      <!--Monod kinetic because there are protein transporters that have affinity towards the attractants they transport for secretion-->
+      <param name="Ks" unit="g.L-1">0.005475049421519388</param>
+    </kineticFactor>
+    <yield>
+      <param name="ChemotacticNutrient" unit="g.g-1">-0.1</param>
+      <param name="Attract" unit="g.g-1">0.1</param>
+    </yield>
+  </reaction>
+  <reaction catalyzedBy="biomass" class="ReactionFactor" name="GradientSecretion">
+    <!--leaving First Order Kinetic since long range attractant comes from the sink-->
+    <param name="muMax" unit="hour-1">5.042091804733464</param>
+    <kineticFactor class="FirstOrderKinetic"/>
+    <yield>
+      <param name="ChemotacticNutrient" unit="g.g-1">-0.1</param>
+      <param name="Gradient" unit="g.g-1">0.1</param>
+    </yield>
+  </reaction>
+  <reaction catalyzedBy="biomass" class="ReactionFactor" name="ProductSecretion">
+    <param name="muMax" unit="hour-1">0.5</param>
+    <!--example of production rate of vanilin, reference Bernard, 1999 -->
+    <kineticFactor class="MonodKinetic" solute="Nutrient">
+      <param name="Ks" unit="g.L-1">1.2e-3</param>
+    </kineticFactor>
+    <kineticFactor class="SimpleInhibition" solute="Product">
+      <param name="Ki" unit="g.L-1">0.18</param>
+    </kineticFactor>
+    <yield>
+      <param name="Nutrient" unit="g.g-1">-0.1</param>
+      <param name="Product" unit="g.g-1">0.1</param>
+    </yield>
+  </reaction>
+  <!--muMax of this first order kinetic is controlled by equation similar to the monod kinetic equation 
+  which depends on the flow rate of the nutrients through the vascular network branch where that particular cell resides. 
+  muMax and Ks of that equation is also same.-->
+  <reaction catalyzedBy="biomass" class="ReactionFactor" name="NutrientSecretion">
+    <!--nutrient secretion and product uptake back into the grid of red cells can be the same-->
+    <param name="muMax" unit="hour-1">0.0</param>
+    <!--values in range for nutrients uptake/secretion for plant cells, Chrispeels at al. -->
+    <kineticFactor class="FirstOrderKinetic"/>
+    <kineticFactor class="SimpleInhibition" solute="Nutrient">
+      <param name="Ki" unit="g.L-1">0.09</param>
+    </kineticFactor>
+    <yield>
+      <param name="Nutrient" unit="g.g-1">0.1</param>
+    </yield>
+  </reaction>
+  <!--muMax of this monod kinetic is controlled by equation similar to the monod kinetic equation 
+  which depends on the flow rate through the vascular network branch where that particular cell resides. 
+  muMax of that equation is also 1.1-->
+  <reaction catalyzedBy="biomass" class="ReactionFactor" name="ProductUptake">
+    <param name="muMax" unit="hour-1">0.0</param>
+    <kineticFactor class="MonodKinetic" solute="Product">
+      <param name="Ks" unit="g.L-1">0.15e-3</param>
+      <!--lower affinity to product, to speed up uptake-->
+    </kineticFactor>
+    <yield>
+      <param name="Product" unit="g.g-1">-0.1</param>
+      <param name="Evaluator" unit="g.g-1">0.1</param>
+    </yield>
+  </reaction>
+  <!--#####################################################################
+		SOLVER SECTION
+	######################################################################-->
+  <solver class="SolverSimple" domain="MyYeastColony" name="solutes">
+    <param name="active">true</param>
+    <param name="preStep">150</param>
+    <param name="postStep">150</param>
+    <param name="coarseStep">1500</param>
+    <param name="nCycles">5</param>
+    <reaction name="AttractSecretion"/>
+    <reaction name="GradientSecretion"/>
+    <reaction name="NutrientSecretion"/>
+    <reaction name="ProductSecretion"/>
+    <reaction name="ProductUptake"/>
+  </solver>
+  <!--#####################################################################
+		AGENT GRID SECTION
+	######################################################################-->
+  <agentGrid>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="resolution" unit="um">4</param>
+    <param name="shovingMaxNodes">2e6</param>
+    <param name="shovingFraction">0.0025</param>
+    <param name="shovingMaxIter">1000</param>
+    <param name="shovingMutual">true</param>
+  </agentGrid>
+  <!--#####################################################################
+		SPECIES SECTION
+	######################################################################-->
+  <species class="Yeast" name="MovingCells">
+    <particle name="biomass">
+      <param name="mass" unit="fg">10000</param>
+    </particle>
+    <particle name="inert">
+      <param name="mass" unit="fg">0</param>
+    </particle>
+    <param name="color">red</param>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="divRadius" unit="um">3000</param>
+    <param name="deathRadius" unit="um">0</param>
+    <param name="shoveFactor" unit="um">1</param>
+    <param name="shoveLimit" unit="um">0.0</param>
+    <param name="epsMax">0.5</param>
+    <param name="kHyd" unit="hr-1">0.1</param>
+    <param name="attachCreateFactor">2.6807806347215317</param>
+    <param name="attachDestroyFactor">4.6421941892950045</param>
+    <reaction name="AttractSecretion" status="active"/>
+    <reaction name="NutrientSecretion" status="active"/>
+    <reaction name="ProductUptake" status="active"/>
+    <chemotaxis>
+      <chemotactic contactInhibition="1" strength="3.8683176931686614" withSolute="Attract"/>
+      <chemotactic contactInhibition="0" strength="2.923198903861775" withSolute="Gradient"/>
+    </chemotaxis>
+    <tightJunctions>
+      <tightJunction stiffness="0.05" withSpecies="MovingCells"/>
+    </tightJunctions>
+    <initArea number="1800">
+      <param name="birthday" unit="hour">0</param>
+      <coordinates x="1" y="13" z="0"/>
+      <coordinates x="256" y="504" z="0"/>
+    </initArea>
+  </species>
+  <species class="Yeast" name="Consumer">
+    <particle name="biomass">
+      <param name="mass" unit="fg">10000</param>
+    </particle>
+    <particle name="inert">
+      <param name="mass" unit="fg">0</param>
+    </particle>
+    <param name="color">green</param>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="divRadius" unit="um">3000</param>
+    <param name="deathRadius" unit="um">0</param>
+    <param name="shoveFactor" unit="um">1</param>
+    <param name="shoveLimit" unit="um">0.0</param>
+    <param name="epsMax">0.5</param>
+    <param name="kHyd" unit="hr-1">0.1</param>
+    <reaction name="ProductSecretion" status="active"/>
+    <entryConditions>
+      <entryCondition name="Nutrient" type="solute">
+        <param name="fromSpecies">ConsumerInactive</param>
+        <param name="switch">greaterThan</param>
+        <param name="concentration" unit="g.L-1">0.099</param>
+      </entryCondition>
+    </entryConditions>
+    <switchingLags>
+      <switchingLag toSpecies="ConsumerInactive" unit="hour" value="2"/>
+    </switchingLags>
+  </species>
+  <species class="Yeast" name="ConsumerInactive">
+    <particle name="biomass">
+      <param name="mass" unit="fg">10000</param>
+    </particle>
+    <particle name="inert">
+      <param name="mass" unit="fg">0</param>
+    </particle>
+    <param name="color">yellow</param>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="divRadius" unit="um">3000</param>
+    <param name="deathRadius" unit="um">0</param>
+    <param name="shoveFactor" unit="um">1</param>
+    <param name="shoveLimit" unit="um">0.0</param>
+    <param name="epsMax">0.5</param>
+    <param name="kHyd" unit="hr-1">0.1</param>
+    <entryConditions>
+      <entryCondition name="Nutrient" type="solute">
+        <param name="fromSpecies">Consumer</param>
+        <param name="switch">lessThan</param>
+        <param name="concentration" unit="g.L-1">0.1</param>
+      </entryCondition>
+    </entryConditions>
+    <initArea number="4200">
+      <param name="birthday" unit="hour">0</param>
+      <coordinates x="1" y="13" z="0"/>
+      <coordinates x="256" y="504" z="0"/>
+    </initArea>
+  </species>
+  <species class="Yeast" name="PipeCellsLeft">
+    <particle name="biomass">
+      <param name="mass" unit="fg">10000</param>
+    </particle>
+    <particle name="inert">
+      <param name="mass" unit="fg">0</param>
+    </particle>
+    <param name="color">blue</param>
+    <param name="fixed">true</param>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="divRadius" unit="um">3000</param>
+    <param name="deathRadius" unit="um">0</param>
+    <param name="shoveFactor" unit="um">1</param>
+    <param name="shoveLimit" unit="um">0.0</param>
+    <param name="epsMax">0.5</param>
+    <param name="kHyd" unit="hr-1">0.1</param>
+    <param name="attachCreateFactor">2.6807806347215317</param>
+    <param name="attachDestroyFactor">4.6421941892950045</param>
+    <param name="tightJunctionToBoundaryStrength">3.037512764539494</param>
+    <param name="attachToBoundaryCreateFactor">1.1</param>
+    <param name="attachToBoundaryDestroyFactor">1.8</param>
+    <reaction name="AttractSecretion" status="active"/>
+    <reaction name="GradientSecretion" status="active"/>
+    <reaction name="NutrientSecretion" status="active"/>
+    <reaction name="ProductUptake" status="active"/>
+    <tightJunctions>
+      <tightJunction stiffness="0.08" withSpecies="PipeCellsLeft"/>
+    </tightJunctions>
+    <initArea number="192" shape="filledBlock">
+      <param name="birthday" unit="hour">0</param>
+      <coordinates x="1" y="505" z="0"/>
+      <coordinates x="256" y="516" z="0"/>
+      <blocks bars="1" cols="3" rows="64"/>
+    </initArea>
+  </species>
+  <species class="Yeast" name="PipeCellsRight">
+    <particle name="biomass">
+      <param name="mass" unit="fg">10000</param>
+    </particle>
+    <particle name="inert">
+      <param name="mass" unit="fg">0</param>
+    </particle>
+    <param name="color">blue</param>
+    <param name="fixed">true</param>
+    <param name="computationDomain">MyYeastColony</param>
+    <param name="divRadius" unit="um">3000</param>
+    <param name="deathRadius" unit="um">0</param>
+    <param name="shoveFactor" unit="um">1</param>
+    <param name="shoveLimit" unit="um">0.0</param>
+    <param name="epsMax">0.5</param>
+    <param name="kHyd" unit="hr-1">0.1</param>
+    <param name="attachCreateFactor">2.6807806347215317</param>
+    <param name="attachDestroyFactor">4.6421941892950045</param>
+    <param name="tightJunctionToBoundaryStrength">3.037512764539494</param>
+    <param name="attachToBoundaryCreateFactor">1.1</param>
+    <param name="attachToBoundaryDestroyFactor">1.8</param>
+    <reaction name="AttractSecretion" status="active"/>
+    <reaction name="GradientSecretion" status="active"/>
+    <reaction name="NutrientSecretion" status="active"/>
+    <reaction name="ProductUptake" status="active"/>
+    <tightJunctions>
+      <tightJunction stiffness="0.08" withSpecies="PipeCellsRight"/>
+    </tightJunctions>
+    <initArea number="192" shape="filledBlock">
+      <param name="birthday" unit="hour">0</param>
+      <coordinates x="1" y="1" z="0"/>
+      <coordinates x="256" y="12" z="0"/>
+      <blocks bars="1" cols="3" rows="64"/>
+    </initArea>
+  </species>
+</idynomics>
