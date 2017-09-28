@@ -1,0 +1,179 @@
+
+
+%\documentclass[journal,10pt,draftclsnofoot,onecolumn]{IEEEtran} %draftclsnofoot
+%\documentclass[confl, draftclsnofoot]{IEEEtran}
+%\documentclass[conference,onecolumn,draft]{IEEEtran}
+\documentclass[conference]{IEEEtran}
+\usepackage{fancyhdr}
+\usepackage{grffile}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{multicol}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{flushend}
+
+%\usepackage{setspace}
+%\doublespacing
+%\onecolumn
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Optimizing Bioengineered Vascular Systems: \\A Genetic Algorithm Approach}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+
+
+
+\author{Sima~Mehri, Curtis~Larsen, Gregory~J.~Podgorski, and ~Nicholas~S.~Flann% stops a space
+\IEEEcompsocitemizethanks{Sima~Mehri, Curtis~Larsen, Gregory J. Podgorski, and ~Nicholas~S.~Flann  are with Utah State University, Logan, Utah,  USA.
+e-mail: (sima.mehri.k@aggiemail.usu.edu, Larsen@dixie.edu, gregory.podgorski@usu.edu, and nick.flann@usu.edu)}}% <-this % stops a space
+
+
+% note the % following the last \IEEEmembership and also \thanks -
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+%
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+%
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+%copyright notice
+\thispagestyle{plain}
+\fancypagestyle{plain}{
+  \fancyhf{} % clear all header and footer fields
+  \fancyfoot[L]{978-1-4673-8988-4/17/\$31.00~\copyright2017~IEEE} % change copyright notice here if required
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\begin{abstract}
+\input{abstract.tex}
+\end{abstract}
+
+
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the journal you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals frown on math
+% in the abstract anyway.
+
+% Note that keywords are not normally used for peerreview papers.
+\renewcommand\IEEEkeywordsname{Key Words}
+\begin{IEEEkeywords}
+Synthetic biology, self organization, vascular development, tissue engineering, genetic algorithms, optimization, bioengineering.
+\end{IEEEkeywords}
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+
+\input{introduction.tex}
+
+\section{Self Organizing Vascularization Model}
+
+\input{vascularModel.tex}
+
+\section{The Genetic Algorithm}
+
+\input{GeneticAlgorithmMethod.tex}
+
+\section{Results}
+
+\input{RESULTS}
+
+\section{Fitness of a Vascular System}
+\label{fitnessFunction}
+
+\input{OptimizationDescription.tex}
+
+\section{Discussion}
+\input{discussion}
+
+\section{Conclusions}
+\input{conclusions}
+
+%%//Future works  In this model error minimization is used to determine model parameters that optimally fit the data are. The best model parameters should be found by choosing, among suboptimal parameters, those that match criteria other than the ones used to fit the model \cite{qanitabaker:Slezak2010When}. In the %future, other biological criteria need to be addressed in finding data and optimization approach form a new complex system and point to the need of a theory that addresses this problem more generally.
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+This work was supported by the Luxembourg Centre for Systems Biomedicine, the University of Luxembourg and the Institute for Systems Biology, Seattle, USA. Research reported in this publication was partially supported by the National Institute Of General Medical Sciences of the National Institutes of Health under Award Number P50GM076547. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+
+\bibliographystyle{plain}
+
+\begin{small}
+
+\bibliography{delindavis,qanitabaker-retinal,qanitabaker-fittingthree,nicholasflann}%,curtislarsen}
+
+\end{small}
+
+
+\end{document}
+
+
