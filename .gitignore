@@ -16,19 +16,21 @@
 
 *.xml
 
+*.con
+
 *.properties
+
 *.zip
+
 jgapTest.con
 
-bin\
-
-lib\
 
 doc\
 
 data\
 
 Output\
+
 bin\**\*
 
 lib\**\*
@@ -39,17 +41,11 @@ data\**\*
 
 Output\**\*
 
-\bin\
-
-\lib\
-
-\doc\
-
 \data\
 
 \Output\
 
-*.con
+
 
 
 
