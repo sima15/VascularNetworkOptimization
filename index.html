@@ -56,23 +56,23 @@
 
 	<p>
 		Efficient metabolism in bioengineered tissues requires
-a robust vascular system to provide healthy microenvironments
-to the cells and stroma. Such networks form spontaneously
-during embryogenesis from randomly distributed endothelial
-cells. There is a need to bioengineer endothelial cells so that
-network formation and operation is optimal for synthetic tissues.
-This work introduces a computational model that simulates de
-novo vascular development and assesses the effectiveness of the
-network in delivering nutrients and extracting waste from tissue.
-A genetic algorithm was employed to identify parameter values of
-the vaculogenesis model that lead to the most efficient and robust
-vascular structures. These parameter values control the behavior
-of cell-level mechanisms such as chemotaxis and adhesion. These
-studies demonstrate that genetic algorithms are effective at identifying
-model parameters that lead to near-optimal networks. This
-work suggests that computational modeling and optimization
-approaches may improve the effectiveness of engineered tissues
-by suggesting target cellular mechanisms for modification.
+		a robust vascular system to provide healthy microenvironments
+		to the cells and stroma. Such networks form spontaneously
+		during embryogenesis from randomly distributed endothelial
+		cells. There is a need to bioengineer endothelial cells so that
+		network formation and operation is optimal for synthetic tissues.
+		This work introduces a computational model that simulates de
+		novo vascular development and assesses the effectiveness of the
+		network in delivering nutrients and extracting waste from tissue.
+		A genetic algorithm was employed to identify parameter values of
+		the vaculogenesis model that lead to the most efficient and robust
+		vascular structures. These parameter values control the behavior
+		of cell-level mechanisms such as chemotaxis and adhesion. These
+		studies demonstrate that genetic algorithms are effective at identifying
+		model parameters that lead to near-optimal networks. This
+		work suggests that computational modeling and optimization
+		approaches may improve the effectiveness of engineered tissues
+		by suggesting target cellular mechanisms for modification.
 	</p>
 
 	<h3 class="title">
@@ -81,7 +81,7 @@ by suggesting target cellular mechanisms for modification.
 
 	<p>
 		Multicellular organisms depend on vascular systems for
-		nutrient delivery and waste removal [20]. These vascular networks
+		nutrient delivery and waste removal. These vascular networks
 		are formed either through vasculogenesis, a biological
 		process in which scattered vessel precursor cells self-organize
 		to create new networks or through angiogenesis, in which new
@@ -90,12 +90,12 @@ by suggesting target cellular mechanisms for modification.
 	<p>
 		Both vasculogenesis and angiogenesis are driven primarily
 		by chemotaxis, a mechanism in which cells move in response
-		to a chemical gradient, along with cell-cell adhesion [19].
+		to a chemical gradient, along with cell-cell adhesion.
 		While many questions remain, progress in understanding and
 		exploiting both vasculogenesis and angiogenesis is being made
-		from a bioengineering perspective [11] [14]. Dahl et al. [23]
+		from a bioengineering perspective. Dahl et al.
 		successfully implanted tissue-engineered vascular grafts in
-		baboons and dogs. Melero-Martin et al. [18] showed that
+		baboons and dogs. Melero-Martin et al. showed that
 		robust development of functional vascular networks is possible
 		in vivo.
 	</p>
@@ -142,43 +142,39 @@ by suggesting target cellular mechanisms for modification.
 		</div>
 	   </div>
 	<h3 class="title">
-		  Method
+		Genetic Algorithm Method
 	</h3>
 
 	<p>
-		Genetic algorithm which is useful in optimization problems, was used to determine the best values for the set of parameters
-		under research. The program would search the space for a set of parameter values which would result in an optimized network
-		of vascular cells. In this project, the network was evaluated visually for fitness, specifically considering the number of 
-		lacunae formed in the simulation world. Obviously, formation of higher number of lacunae means availability of nutrients 
-		and access to removal system to more producer cells and consequently a higher productivity of the cell culture. 
+		The self organizing vascular model has seven parameters
+		with unknown values (Table 1). The best fit for these parameters
+		was found using a genetic algorithm from the Java Genetic
+		Algorithms Package [4]. The seven parameters are used as
+		genes in individual chromosomes. The initial population had
+		a size of three and was constructed by random selection of
+		parameter values from the ranges shown in Table II. As the
+		population evolves during runs of the genetic algorithm, each
+		individual is evaluated using the parameter values encoded in
+		the genes used to run the vascular model. 
+		The resulting vascular network is then evaluated, 
+		and the fitness is assigned based on
+		the metabolic production. Next, genetic operators were run on
+		the population followed by a re-evaluation of the population
+		that now contained new individuals. Finally, selection was
+		applied to obtain the new population for the next round of
+		evolution. Crossover and mutation operators were included
+		in the genetic algorithm, with the crossover operator applied
+		to 35% of the population per generation and the mutation
+		operator was applied to each gene with a probability of
+		1/12. An elitist ranking selector cloned the top %90 of the
+		population, with the remaining 10% of the population filled
+		with the same individuals in the order of fitness. The results
+		presented in this paper were obtained using 1000 steps of
+		evolution.
 	</p>
-   	 <p> 
-		 JGAP package from MOEA framework was used for the genetic algorithm creation. Initial population was set to include
-		 2 Chromosomes. Each chromosome consisted of 7 genes, the parameters being evaluated. A validity range was assigned to
-		 each gene so that the algorithm would choose values in the range. Initial population values were set randomly. The 
-		 algorithm was set to stop executing after 30 iterations.  
-	</p>
-	<h5 class="title2">
-		 Parameters:
-	  </h5>
-	<p>
-		The parameters used in the GA included chemo-attractant force response relevant to vascular and circulatory cells,
-		chemo-attractant reaction of the vascular network consisting of chemo-attractant production rate, decay rate, and
-		half-saturation, and finally chemo-attractant reaction of the circulatory cells comprising chemo-attractant 
-		production and decay rate. 	
-	</p>
-	<h5 class="title2">
-	  Parameter ranges:
-	  </h5>
-	<p>
-		The parameter ranges included a substantially different ranges starting from ( 0.0000000001, 0.001 ) for 
-		chemo-attractant decay rate for circulatory cells to ( 1 , 7 ) for chemo-attractant production rate of vascular 
-		cells depending on the type of parameter. 	
-	</p>
-	
-    
+   	
     <h3 class="title">
-	      Results
+	    Results
     </h3>
    
 	<div class="row">
@@ -193,30 +189,22 @@ by suggesting target cellular mechanisms for modification.
 			consistent vascular network for the flow of nutrients and products
 		</div>
 	</div>
-<!--
-	     <div class="row">
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/flowVisualization.png" alt="The best 
-			vascular network" style="width:100%" />
-     		 Figure 5. Flow diagram inside the best vascular network of endothelial-like cells that our algorithm has found in 30 iterations.
-		Lighter and closer to red depicts a high amount of flow inside the network while darker colors show lower amount 
-		of it.
 
-		</div>
-		<div class="col-lg-6"><img src="https://sima15.github.io/VascularNetworkOptimization/images/no-network-flow.png" alt="The best
-			vascular network" style="width:100%" />
-	        	 Figure 6. Flow diagram inside a random vascular network of endothelial-like cells which is not optimized. According to this
-			picture, no connected network is formed for the nutrients, product and waste to flow in and the vessels are depicted in black.
-  	        </div>
-	     </div>
- --> 
-	  <div><img src="https://sima15.github.io/VascularNetworkOptimization/images/ex1.png" 
-		class="img-responsive" style="display:inline;width:100%" alt="genetic algorithm evolutionary trend"/>
-		Figure 7. A comparison between the production amount of two network of vascular cells, one being in an arbitrary stage of the genetic algorithm
-		run and the other the best vescular system our genetic algortihm has discovered.     
+	<div><img src="https://sima15.github.io/VascularNetworkOptimization/images/ga-params.png" 
+		class="img-responsive" style="display:inline;width:100%" alt="Parameters searched by the GA"/>
+		Table 1. Parameters searched by the GA
+	</div>
+	
+	<div><img src="https://sima15.github.io/VascularNetworkOptimization/images/ex1.png" 
+		class="img-responsive" style="display:inline;width:60%" alt="genetic algorithm evolutionary trend"/>
+		Figure 5. The metabolic production of the best-so-far individual
+		identified as a function of generation. Only a single run
+		is provided due to the four hours needed for each fitness
+		evaluation. 
 	</div>
   
 	<h3 class="title">
-		    Conclusion
+		Conclusion
 	</h3>
 
 	<p>
@@ -231,7 +219,7 @@ by suggesting target cellular mechanisms for modification.
 	</p>
 
 	<h3 class="title">
-		    References
+		References
 	</h3>
 
 	<p>
@@ -241,12 +229,12 @@ by suggesting target cellular mechanisms for modification.
 		[4] “MOEA Framework, a Java library for multiobjective evolutionary algorithms.” [Online]. Available: <a href="http://moeaframework.org/">http://moeaframework.org/</a>. [Accessed: 04-Dec-2016].
 	</p>
 
-      <footer class="site-footer">
+    <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/sima15/VascularNetworkOptimization">Vascular Network Optimization Using A Genetic Algorithm, A Computational Approach</a> is maintained by <a href="https://github.com/sima15">sima15</a>.</span>
-      </footer>
+    </footer>
 
 </div>
 
   
-  </body>
+</body>
 </html>
